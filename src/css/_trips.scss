@@ -1,0 +1,10 @@
+.trip {
+  display: flex;
+}
+
+.trip--article {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
