@@ -1,3 +1,16 @@
 body, html {
   font-family: 'Yusei Magic', sans-serif;
 }
+
+header {
+  align-items: center;
+  background-color: $color-honey;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+h2 {
+  margin: 1rem 0 1rem 0;
+  padding: 0;
+}

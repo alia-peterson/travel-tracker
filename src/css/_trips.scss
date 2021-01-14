@@ -1,10 +1,15 @@
 .trip {
   display: flex;
+  justify-content: space-around;
 }
 
 .trip--article {
   align-items: center;
+  background-color: $color-skobeloff;
+  color: $color-almond;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 1rem;
+  margin: 1rem;
 }
