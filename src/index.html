@@ -13,23 +13,42 @@
       <h1>Welcome User!</h1>
       <h2>Total Spent This Year</h2>
     </header>
-    <section class="trip">
-      <h2 class="trip--title">Plan a Trip</h2>
-      <label for="trip--date">Start Date</label>
-      <input class="trip--date" id="trip--date" type="date" name="start date" value="Choose a Date..">
-      <label for="trip--duration">Number of Days</label>
-      <select id="trip--duration" class="trip--dropdown" name="Days" value="Number">
-        <option value="1">1</option>
-      </select>
-      <label for="trip--travelers">Number of Travelers</label>
-      <select id="trip--travelers" class="trip--dropdown" name="Travelers">
-        <option value="1">1</option>
-      </select>
-      <label for="trip--destination">Travel Destinaton</label>
-      <select id="trip--destination" class="trip--dropdown" name="Destination">
-        <option value="Hawaii">Hawaii</option>
-      </select>
-    </section>
+    <main>
+      <section class="planning">
+        <h2 class="planning--title">Plan a Trip</h2>
+        <label for="planning--date">Start Date</label>
+        <input class="planning--date" id="planning--date" type="date" name="start date" value="Choose a Date..">
+        <label for="planning--duration">Number of Days</label>
+        <select id="planning--duration" class="planning--dropdown" name="Days" value="Number">
+          <option value="1">1</option>
+        </select>
+        <label for="planning--travelers">Number of Travelers</label>
+        <select id="planning--travelers" class="planning--dropdown" name="Travelers">
+          <option value="1">1</option>
+        </select>
+        <label for="planning--destination">Travel Destinaton</label>
+        <select id="planning--destination" class="planning--dropdown" name="Destination">
+          <option value="Hawaii">Hawaii</option>
+        </select>
+        <button type="button" name="button">Calculate Trip Cost</button>
+        <p id="planning--cost" class="planning--text">Estimated Cost:</p>
+        <button type="button" name="button">Add to Trips</button>
+      </section>
+      <section class="trip">
+        <article id="trip--present" class="trip--article">
+          <h2>Present</h2>
+        </article>
+        <article id="trip--upcoming" class="trip--article">
+          <h2>Upcoming</h2>
+        </article>
+        <article id="trip--pending" class="trip--article">
+          <h2>Pending</h2>
+        </article>
+        <article id="trip--previous" class="trip--article">
+          <h2>Previous</h2>
+        </article>
+      </section>
+    </main>
   </body>
 
 </html>
