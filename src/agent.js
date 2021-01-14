@@ -1,6 +1,6 @@
 class Agent {
   constructor() {
-    super()
+    
   }
 }
 
