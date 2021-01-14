@@ -1,16 +1,42 @@
 body, html {
   font-family: 'Yusei Magic', sans-serif;
+  height: 98vh;
+  // width: 100%;
 }
 
 header {
-  align-items: center;
+  // align-items: center;
   background-color: $color-honey;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  // justify-content: space-between;
   padding: 1rem;
 }
 
 h2 {
   margin: 1rem 0 1rem 0;
   padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas:
+    "header planning planning planning"
+    "trips trips trips trips";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
+  height: 100%;
+}
+
+#header {
+  grid-area: header;
+}
+
+#planning {
+  grid-area: planning;
+}
+
+#trips {
+  grid-area: trips;
 }

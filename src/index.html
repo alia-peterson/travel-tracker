@@ -10,12 +10,13 @@
   </head>
 
   <body>
-    <header>
-      <h1>Welcome User!</h1>
-      <h2>Total Spent This Year</h2>
-    </header>
-    <main>
-      <section class="planning">
+    <main class="container">
+      <header id="header">
+        <h1>Welcome User!</h1>
+        <h2>Total Spent This Year:</h2>
+        <p>$400.55</p>
+      </header>
+      <section class="planning" id="planning">
         <h2 class="planning--title">Plan a Trip</h2>
         <label for="planning--date">Start Date</label>
         <input class="planning--date" id="planning--date" type="date" name="start date" value="">
@@ -35,7 +36,19 @@
         <p id="planning--cost" class="planning--text">Estimated Cost:</p>
         <button type="button" name="button">Add to Trips</button>
       </section>
-      <section class="trip">
+      <section class="trips" id="trips">
+        <template id="trip--template">
+          <article class="trip--card">
+            <h3 class="card--title" id="card--destination">Hawaii</h3>
+            <h4 class="card--header">Details</h4>
+            <p class="card--text" id="card--date">Start Date: Jan 10, 2010</p>
+            <p class="card--text" id="card--duration">Duration: 7 Days</p>
+            <p class="card--text" id="card--travelers">Travelers: 3 Adults</p>
+            <h4 class="card--header">Cost Per Person</h4>
+            <p class="card--text" id="card--lodging">Lodging Cost Per Day: $80</p>
+            <p class="card--text" id="card--flight">Flight Cost: $600</p>
+          </article>
+        </template>
         <article id="trip--present" class="trip--article">
           <h2>Present</h2>
         </article>
@@ -49,12 +62,6 @@
           <h2>Previous</h2>
         </article>
       </section>
-      <template id="trip--template">
-        <article class="trip--card">
-
-          
-        </article>
-      </template>
     </main>
   </body>
 
