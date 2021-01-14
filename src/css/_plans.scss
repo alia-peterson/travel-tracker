@@ -1,5 +1,19 @@
+* {
+  // border: 1px solid black;
+}
+
 .planning {
   background-color: $color-skobeloff;
+  border-radius: 1rem;
   color: $color-almond;
+  // display: flex;
   padding: 1rem;
+
+  .button {
+    background-color: #fff;
+  }
+
+  .form--table {
+    width: 100%;
+  }
 }
