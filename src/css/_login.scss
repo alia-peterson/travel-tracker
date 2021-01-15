@@ -19,7 +19,8 @@
 .login--body {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  width: 100%;
 
   button {
     @include button-primary;

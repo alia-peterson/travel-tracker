@@ -9,6 +9,12 @@ class Trip {
     this.status = trip.status
     this.suggestedActivities = trip.suggestedActivities
   }
+
+  formatDate() {
+    const dateParts = this.date.split('/')
+    const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+    this.date = newDate.toDateString()
+  }
 }
 
 module.exports = Trip

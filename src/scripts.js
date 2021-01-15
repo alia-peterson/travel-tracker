@@ -58,11 +58,14 @@ function findTravelerTrips(allTrips) {
   const travelerTrips = allTrips.filter(trip => {
     return trip.userID === currentTraveler.id
   })
-  console.log(travelerTrips);
+
   travelerTrips.forEach(trip => {
     const newTrip = new Trip(trip)
+    newTrip.formatDate()
     currentTraveler.trips.push(newTrip)
   })
+
+  currentTraveler.sortTripsByDate()
 }
 
 function findDestinationInformation(destinations) {

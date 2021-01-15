@@ -20,15 +20,15 @@
 }
 
 .trip--card {
+  align-items: center;
   background-color: $color-amaranth;
   color: $color-eagle-green;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
   margin: 0.5rem 0 0.5rem 0;
-  width: 14rem;
   text-align: center;
+  width: 90%;
 
   .card--header {
     position: relative;
