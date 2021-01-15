@@ -47,15 +47,30 @@ function createTravelerProfile(traveler) {
   currentTraveler = new Traveler(traveler)
   domUpdates.populateTravelerInformation(currentTraveler)
 
-  Promise.all([tripsResponse])
+  Promise.all([tripsResponse, destinationsResponse])
     .then(responses => {
       findTravelerTrips(responses[0].trips)
+      findDestinationInformation(responses[1].destinations)
     })
 }
 
 function findTravelerTrips(allTrips) {
-  const travelerTrips = allTrips.filter(trip => trip.userID === currentTraveler.id)
+  const travelerTrips = allTrips.filter(trip => {
+    return trip.userID === currentTraveler.id
+  })
   console.log(travelerTrips);
+  travelerTrips.forEach(trip => {
+    const newTrip = new Trip(trip)
+    currentTraveler.trips.push(newTrip)
+  })
+}
+
+function findDestinationInformation(destinations) {
+  currentTraveler.trips.forEach(trip => {
+    const place = destinations.find(dest => dest.id === trip.destinationID)
+    const newDestination = new Destination(place)
+    domUpdates.addDestinationInformation(trip, newDestination)
+  })
 }
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD

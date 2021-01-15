@@ -98,7 +98,10 @@
         <section class="trips" id="trips">
           <template id="trip--template">
             <article class="trip--card">
-              <h4 class="card--title" id="card--destination">Hawaii</h4>
+              <div class="card--header">
+                <h4 class="card--title" id="card--destination">Hawaii</h4>
+                <img class="card--image" id="card--image" src="" alt="">
+              </div>
               <h5 class="card--header">Details</h5>
               <p class="card--text" id="card--date">Start Date: Jan 10, 2010</p>
               <p class="card--text" id="card--duration">Duration: 7 Days</p>
@@ -108,6 +111,9 @@
               <p class="card--text" id="card--flight">Flight Cost: $600</p>
             </article>
           </template>
+          <article id="trip--previous" class="trip--article">
+            <h3>Previous</h3>
+          </article>
           <article id="trip--present" class="trip--article">
             <h3>Present</h3>
           </article>
@@ -116,9 +122,6 @@
           </article>
           <article id="trip--pending" class="trip--article">
             <h3>Pending</h3>
-          </article>
-          <article id="trip--previous" class="trip--article">
-            <h3>Previous</h3>
           </article>
         </section>
       </section>
