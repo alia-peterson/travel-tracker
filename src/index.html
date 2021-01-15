@@ -58,34 +58,30 @@
               <thead>
                 <tr>
                   <td><label for="planning--date">Start Date</label></td>
+                  <td><label for="planning--destination">Travel Destination</label></td>
                   <td><label for="planning--duration">Number of Days</label></td>
                   <td><label for="planning--travelers">Number of Travelers</label></td>
-                  <td><label for="planning--destination">Travel Destination</label></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><input class="planning--date" id="planning--date" type="date" name="start date" value=""></td>
                   <td>
-                    <select id="planning--duration" class="planning--dropdown" name="Days" value="Number">
-                      <option value="1">1</option>
-                    </select>
+                    <input class="planning--date" id="planning--date" type="date" name="start date" value="">
                   </td>
                   <td>
-                    <select id="planning--travelers" class="planning--dropdown" name="Travelers">
-                      <option value="1">1</option>
-                    </select>
+                    <select id="planning--destination" class="planning--dropdown" name="Destination"></select>
                   </td>
                   <td>
-                    <select id="planning--destination" class="planning--dropdown" name="Destination">
-                      <option value="Hawaii">Hawaii</option>
-                    </select>
+                    <select id="planning--duration" class="planning--dropdown" name="Days" value="Number"></select>
+                  </td>
+                  <td>
+                    <select id="planning--travelers" class="planning--dropdown" name="Travelers"></select>
                   </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
-                  <td><p id="planning--cost" class="planning--text">Estimated Cost: $350.50</p></td>
+                  <td><p id="planning--cost" class="planning--text">Estimated Cost: $0.00</p></td>
                 </tr>
               </tfoot>
             </table>

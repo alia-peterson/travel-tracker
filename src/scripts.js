@@ -17,17 +17,33 @@ const dashboardView = document.querySelector('.dashboard')
 const loginView = document.querySelector('.login')
 const travelerUsername = document.querySelector('#name-traveler')
 const travelerPassword = document.querySelector('#pass-traveler')
+const destinationDropdown = document.querySelector('#planning--destination')
+const durationDropdown = document.querySelector('#planning--duration')
+const travelersDropdown = document.querySelector('#planning--travelers')
 
+const allDestinations = []
 let currentTraveler
 
 // EVENT LISTENERS
 travelerLoginButton.addEventListener('click', authenticateUser)
 agentLoginButton.addEventListener('click', authenticateUser)
 logoffButton.addEventListener('click', toggleScreen)
+destinationDropdown.addEventListener('change', updateEstimatedCost)
+durationDropdown.addEventListener('change', updateEstimatedCost)
+travelersDropdown.addEventListener('change', updateEstimatedCost)
 
 // FETCH SERVER DATA
 const tripsResponse = fetchApi.getAllTrips()
 const destinationsResponse = fetchApi.getAllDestinations()
+
+Promise.all([destinationsResponse])
+  .then(responses => {
+    responses[0].destinations.forEach(place => {
+      const newDestination = new Destination(place)
+      allDestinations.push(newDestination)
+    })
+  })
+  .then(populateDropdowns)
 
 // USER INFORMATION POPULATION
 function authenticateUser() {
@@ -69,15 +85,42 @@ function findTravelerTrips(allTrips) {
   currentTraveler.sortTripsByDate()
 }
 
+function populateDropdowns() {
+  alphabetizeDestinations(allDestinations)
+
+  domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
+  domUpdates.addNumbersToDropdowns(durationDropdown)
+  domUpdates.addNumbersToDropdowns(travelersDropdown)
+}
+
 function findDestinationInformation(destinations) {
   currentTraveler.trips.forEach(trip => {
-    const place = destinations.find(dest => dest.id === trip.destinationID)
+    const place = findDestination(trip.destinationID)
     const newDestination = new Destination(place)
     domUpdates.addDestinationInformation(trip, newDestination)
   })
 
   const totalSpent = currentTraveler.calculateTotalSpent(destinations)
   domUpdates.addCostToProfile(totalSpent)
+}
+
+function findDestination(destinationID) {
+  const place = allDestinations.find(dest => dest.id === destinationID)
+  return place
+}
+
+function alphabetizeDestinations(destinations) {
+  destinations.sort((a, b) => {
+    if (a.destination > b.destination) {
+      return 1
+    } else if (a.destination < b.destination) {
+      return -1
+    }
+  })
+}
+
+function updateEstimatedCost() {
+
 }
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD

@@ -37,6 +37,26 @@ const domUpdates = {
 
   addCostToProfile(totalCost) {
     welcomeTotalSpent.innerText = `$${totalCost}`
+  },
+
+  addDestinationsToDropdown(destinations, dropdown) {
+    destinations.forEach(location => {
+      const newOption = document.createElement('option')
+      newOption.value = location.id
+      newOption.innerText = location.destination
+      dropdown.appendChild(newOption)
+    })
+  },
+
+  addNumbersToDropdowns(dropdown) {
+    const possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    possibleNumbers.forEach(number => {
+      const newOption = document.createElement('option')
+      newOption.value = number
+      newOption.innerText = number
+      dropdown.appendChild(newOption)
+    })
   }
 }
 
