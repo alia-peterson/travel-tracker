@@ -2,6 +2,7 @@
   background-color: $color-jungle-green;
   border-radius: 1rem;
   color: $color-almond;
+  max-height: 30vh;
   padding: 1rem;
 
   .button {
@@ -16,6 +17,6 @@
     align-items: center;
     display: flex;
     justify-content: space-evenly;
-    margin-top: 2rem;
+    // margin-top: 2rem;
   }
 }
