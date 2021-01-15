@@ -17,7 +17,7 @@ const domUpdates = {
     welcomeMessage.innerText = `Welcome ${travelerFirstName}!`
   },
 
-  displayDestinationInformation(trip, place) {
+  displayDestinationInformation(trip, place, daysPassed) {
     const tripCard = trips.Template.content.cloneNode(true)
     tripCard.querySelector('#card--destination').innerText = place.destination
     tripCard.querySelector('#card--image').src = place.image
@@ -28,15 +28,12 @@ const domUpdates = {
     tripCard.querySelector('#card--lodging').innerText = `Lodging Cost Per Day: $${place.lodgingCostPerDay}`
     tripCard.querySelector('#card--flight').innerText = `Flight Cost: $${place.flightCostPerPerson}`
 
-    const status = trip.determineTripStatus()
+    const status = trip.determineTripStatus(daysPassed)
     trips[status].appendChild(tripCard)
   },
 
-  clearTripDisplays() {
-    trips.Previous.querySelectorAll('article').forEach(item => item.remove())
-    trips.Present.querySelectorAll('article').forEach(item => item.remove())
-    trips.Upcoming.querySelectorAll('article').forEach(item => item.remove())
-    trips.Pending.querySelectorAll('article').forEach(item => item.remove())
+  clearTripDisplays(status) {
+    trips[status].querySelectorAll('article').forEach(item => item.remove())
   },
 
   addCostToProfile(totalCost) {

@@ -37,6 +37,7 @@ addToTripsButton.addEventListener('click', addToPendingTrips)
 destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
+dateInput.addEventListener('change', validateForm)
 
 
 // FETCH SERVER DATA
@@ -55,7 +56,11 @@ Promise.all([destinationsResponse])
 
 // USER INFORMATION POPULATION
 function authenticateUser() {
-  domUpdates.clearTripDisplays()
+  domUpdates.clearTripDisplays('Previous')
+  domUpdates.clearTripDisplays('Present')
+  domUpdates.clearTripDisplays('Upcoming')
+  domUpdates.clearTripDisplays('Pending')
+
   resetPlanningForm()
 
   if (travelerUsername.value.includes('traveler') &&
@@ -119,6 +124,7 @@ function alphabetizeDestinations(destinations) {
   destinations.sort((a, b) => {
     if (a.destination > b.destination) {
       return 1
+
     } else if (a.destination < b.destination) {
       return -1
     }
@@ -145,6 +151,17 @@ function updateEstimatedCost(event) {
 
     estimatedCostOfTrip.innerText = `Estimated Cost: $${price}`
   }
+
+  validateForm()
+}
+
+function validateForm() {
+  if (destinationDropdown.value && dateInput.value) {
+    const selectedDate = new Date(dateInput.value)
+    const daysPassed = 1
+    const dateComparison = selectedDate - todayDate
+    addToTripsButton.disabled = false
+  }
 }
 
 
@@ -152,8 +169,16 @@ function updateEstimatedCost(event) {
 function findDestinationInformation(destinations) {
   currentTraveler.trips.forEach(trip => {
     const place = findDestination(trip.destinationID)
-    domUpdates.displayDestinationInformation(trip, place)
+    const daysPassed = determineDateDifference(trip.date)
+    
+    domUpdates.displayDestinationInformation(trip, place, daysPassed)
   })
+}
+
+function determineDateDifference(dateInput) {
+  const today = new Date()
+  const diffTime = Date.parse(dateInput) - today
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 }
 
 function findDestination(destinationID) {
