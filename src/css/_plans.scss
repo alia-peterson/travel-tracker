@@ -1,0 +1,21 @@
+.planning {
+  background-color: $color-jungle-green;
+  border-radius: 1rem;
+  color: $color-almond;
+  padding: 1rem;
+
+  .button {
+    @include button-primary;
+  }
+
+  .form--table {
+    width: 100%;
+  }
+
+  .form--bottom {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+  }
+}

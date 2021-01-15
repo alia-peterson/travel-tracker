@@ -1,0 +1,55 @@
+.login {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.login--main {
+  align-items: center;
+  background-color: $color-eagle-green;
+  border-radius: 2rem;
+  color: $color-maize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+  width: 80vw;
+}
+
+.login--body {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    @include button-primary;
+    background-color: $color-jungle-green;
+    color: $color-maize;
+  }
+}
+
+.login--form {
+  align-items: center;
+  background-color: $color-honey;
+  border-right: 2px solid $color-maize;
+  border-radius: 2rem;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 25rem;
+  margin: 2rem;
+  width: 15rem;
+
+  input {
+    font-size: 18px;
+    height: 20px;
+    width: 180px;
+  }
+}
+
+.line {
+  background-color: $color-maize;
+  height: 100%;
+  width: 1px;
+}

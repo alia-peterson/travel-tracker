@@ -1,0 +1,19 @@
+@mixin button-primary {
+  background-color: $color-maize;
+  border: none;
+  box-shadow: none;
+  border-radius: 0.2rem;
+  font-family: $font-primary;
+  padding: 0.5rem;
+  width: 150px;
+}
+
+$color-eagle-green: #003844;
+$color-jungle-green: #005256;
+$color-ming: #3D767B;
+$color-amaranth: #F194B4;
+$color-honey: #FFB100;
+$color-maize: #FFCE63;
+$color-almond: #FFEBC6;
+
+$font-primary: 'Yusei Magic', sans-serif;

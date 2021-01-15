@@ -1,0 +1,49 @@
+.trips {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas:
+    "present upcoming pending previous";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+}
+
+.trip--article {
+  align-items: center;
+  background-color: $color-eagle-green;
+  border-radius: 1rem;
+  color: $color-almond;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.trip--card {
+  background-color: $color-amaranth;
+  color: $color-eagle-green;
+  margin: 0.5rem;
+  min-width: 15rem;
+  padding: 0.5rem;
+  text-align: center;
+
+  h4 {
+    text-decoration: underline;
+  }
+}
+
+#trip--present {
+  grid-area: present;
+}
+
+#trip--upcoming {
+  grid-area: upcoming;
+}
+
+#trip--pending {
+  grid-area: pending;
+}
+
+#trip--previous {
+  grid-area: previous;
+}
