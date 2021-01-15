@@ -26,6 +26,10 @@
     @include button-primary;
     background-color: $color-jungle-green;
     color: $color-maize;
+
+    &:disabled {
+      background-color: $color-ming;
+    }
   }
 }
 

@@ -1,19 +1,25 @@
 @mixin button-primary {
-  background-color: $color-maize;
+  background-color: $color-honey;
   border: none;
   box-shadow: none;
   border-radius: 0.2rem;
+  cursor: pointer;
   font-family: $font-primary;
   padding: 0.5rem;
   width: 150px;
+
+  &:disabled {
+    background-color: $color-maize;
+    cursor: default;
+  }
 }
 
-$color-eagle-green: #003844;
-$color-jungle-green: #005256;
-$color-ming: #3D767B;
-$color-amaranth: #F194B4;
-$color-honey: #FFB100;
-$color-maize: #FFCE63;
-$color-almond: #FFEBC6;
+$color-eagle-green: #003844; // darkest green
+$color-jungle-green: #005256; // mid green
+$color-ming: #3D767B; // light green
+$color-amaranth: #F194B4; // pink
+$color-honey: #FFB100; // bright yellow
+$color-maize: #FFCE63; // light yellow
+$color-almond: #FFEBC6; // light tan 
 
 $font-primary: 'Yusei Magic', sans-serif;

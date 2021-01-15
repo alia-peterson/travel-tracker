@@ -9,6 +9,7 @@ import Agent from './agent'
 import Trip from './trip'
 import Destination from './destination'
 
+
 // QUERY SELECTORS AND GLOBAL VARIABLES
 const travelerLoginButton = document.querySelector('#button-traveler')
 const agentLoginButton = document.querySelector('#button-agent')
@@ -27,6 +28,7 @@ const estimatedCostOfTrip = document.querySelector('#planning--cost')
 const allDestinations = []
 let currentTraveler
 
+
 // EVENT LISTENERS
 travelerLoginButton.addEventListener('click', authenticateUser)
 agentLoginButton.addEventListener('click', authenticateUser)
@@ -35,6 +37,7 @@ addToTripsButton.addEventListener('click', addToPendingTrips)
 destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
+
 
 // FETCH SERVER DATA
 const tripsResponse = fetchApi.getAllTrips()
@@ -48,6 +51,7 @@ Promise.all([destinationsResponse])
     })
   })
   .then(populateDropdowns)
+
 
 // USER INFORMATION POPULATION
 function authenticateUser() {
@@ -73,6 +77,7 @@ function createTravelerProfile(traveler) {
     .then(responses => {
       findTravelerTrips(responses[0].trips)
       findDestinationInformation(responses[1].destinations)
+      displayAmoutSpent(responses[1].destinations)
     })
 }
 
@@ -83,6 +88,7 @@ function findTravelerTrips(allTrips) {
 
   travelerTrips.forEach(trip => {
     const newTrip = new Trip(trip)
+
     newTrip.formatDate()
     currentTraveler.trips.push(newTrip)
   })
@@ -90,28 +96,23 @@ function findTravelerTrips(allTrips) {
   currentTraveler.sortTripsByDate()
 }
 
-function populateDropdowns() {
-  const today = new Date()
-
-  alphabetizeDestinations(allDestinations)
-
-  domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
-  domUpdates.addNumbersToDropdowns(durationDropdown)
-  domUpdates.addNumbersToDropdowns(travelersDropdown)
-}
-
-function findDestinationInformation(destinations) {
-  currentTraveler.trips.forEach(trip => {
-    const place = findDestination(trip.destinationID)
-    domUpdates.addDestinationInformation(trip, place)
-  })
-
+function displayAmoutSpent(destinations) {
   const totalSpent = currentTraveler.calculateTotalSpent(destinations)
   domUpdates.addCostToProfile(totalSpent)
 }
 
-function findDestination(destinationID) {
-  return allDestinations.find(dest => dest.id === destinationID)
+function addToPendingTrips() {
+  console.log('hiyee');
+}
+
+
+// PLANNING FORM INFORMATION
+function resetPlanningForm() {
+  destinationDropdown.value = 0
+  durationDropdown.value = 1
+  travelersDropdown.value = 1
+
+  estimatedCostOfTrip.innerText = `Estimated Cost: $0.00`
 }
 
 function alphabetizeDestinations(destinations) {
@@ -124,33 +125,41 @@ function alphabetizeDestinations(destinations) {
   })
 }
 
+function populateDropdowns() {
+  alphabetizeDestinations(allDestinations)
+
+  domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
+  domUpdates.addNumbersToDropdowns(durationDropdown)
+  domUpdates.addNumbersToDropdowns(travelersDropdown)
+}
+
 function updateEstimatedCost(event) {
-  if (!destinationDropdown.value) {
-    return
+  if (destinationDropdown.value) {
+    const destination = findDestination(Number(destinationDropdown.value))
+    const numDays = durationDropdown.value
+    const numPeople = travelersDropdown.value
+
+    const lodgingCost = destination.lodgingCostPerDay * numDays * numPeople
+    const flightCost = destination.flightCostPerPerson * numPeople
+    const price = lodgingCost + flightCost
+
+    estimatedCostOfTrip.innerText = `Estimated Cost: $${price}`
   }
-
-  const destination = findDestination(Number(destinationDropdown.value))
-  const numDays = durationDropdown.value
-  const numPeople = travelersDropdown.value
-
-  const lodgingCost = destination.lodgingCostPerDay * numDays * numPeople
-  const flightCost = destination.flightCostPerPerson * numPeople
-  const price = lodgingCost + flightCost
-
-  estimatedCostOfTrip.innerText = `Estimated Cost: $${price}`
 }
 
-function addToPendingTrips() {
-  console.log('hiyee');
+
+// GENERAL FUNCTIONALITY
+function findDestinationInformation(destinations) {
+  currentTraveler.trips.forEach(trip => {
+    const place = findDestination(trip.destinationID)
+    domUpdates.displayDestinationInformation(trip, place)
+  })
 }
 
-function resetPlanningForm() {
-  destinationDropdown.value = 0
-  durationDropdown.value = 1
-  travelersDropdown.value = 1
-
-  estimatedCostOfTrip.innerText = `Estimated Cost: $0.00`
+function findDestination(destinationID) {
+  return allDestinations.find(dest => dest.id === destinationID)
 }
+
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD
 function toggleScreen() {

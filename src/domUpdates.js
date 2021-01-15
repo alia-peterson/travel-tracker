@@ -17,7 +17,7 @@ const domUpdates = {
     welcomeMessage.innerText = `Welcome ${travelerFirstName}!`
   },
 
-  addDestinationInformation(trip, place) {
+  displayDestinationInformation(trip, place) {
     const tripCard = trips.Template.content.cloneNode(true)
     tripCard.querySelector('#card--destination').innerText = place.destination
     tripCard.querySelector('#card--image').src = place.image
@@ -53,7 +53,7 @@ const domUpdates = {
   },
 
   addNumbersToDropdowns(dropdown) {
-    const possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
     possibleNumbers.forEach(number => {
       const newOption = document.createElement('option')
