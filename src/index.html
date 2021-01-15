@@ -15,77 +15,111 @@
         <img src="./images/logo-plane.svg" alt="">
         <h1><span>travel</span>general</h1>
       </div>
-      <h2>you deserve a vacation</h2>
+      <div class="slogan">
+        <button id="button-logoff" type="button" name="button">Log Out</button>
+        <h2>you deserve a vacation</h2>
+      </div>
     </header>
-    <main class="container">
-      <section class="welcome" id="welcome">
-        <h2>Welcome User!</h2>
-        <h3>Total Spent This Year:</h3>
-        <p>$400.55</p>
+    <main>
+      <section class="login hidden">
+        <section class="login--main">
+          <h2>User Login</h2>
+          <div class="login--body">
+            <article class="login--form">
+              <h3>Traveler Login</h3>
+              <label for="user-traveler">Username</label>
+              <input id="user-traveler" type="text" name="" value="">
+              <label for="pass-traveler">Password</label>
+              <input id="pass-traveler" type="text" name="" value="">
+              <button id="button-traveler" type="button" name="button">Login</button>
+            </article>
+            <article class="login--form">
+              <h3>Agent Login</h3>
+              <label for="user-agent">Username</label>
+              <input id="user-agent" type="text" name="" value="">
+              <label for="pass-agent">Password</label>
+              <input id="pass-agent" type="text" name="" value="">
+              <button id="button-agent" type="button" name="button">Login</button>
+            </article>
+          </div>
+        </section>
       </section>
-      <section class="planning" id="planning">
-        <h3 class="planning--title">Plan a Trip</h3>
-        <form class="planning--form" action="index.html" method="post">
-          <table class="form--table">
-            <thead>
-              <tr>
-                <td><label for="planning--date">Start Date</label></td>
-                <td><label for="planning--duration">Number of Days</label></td>
-                <td><label for="planning--travelers">Number of Travelers</label></td>
-                <td><label for="planning--destination">Travel Destination</label></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input class="planning--date" id="planning--date" type="date" name="start date" value=""></td>
-                <td>
-                  <select id="planning--duration" class="planning--dropdown" name="Days" value="Number">
-                  <option value="1">1</option>
-                  </select>
-                </td>
-                <td>
-                  <select id="planning--travelers" class="planning--dropdown" name="Travelers">
-                    <option value="1">1</option>
-                  </select>
-                </td>
-                <td>
-                  <select id="planning--destination" class="planning--dropdown" name="Destination">
-                    <option value="Hawaii">Hawaii</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="button" type="button" name="button">Calculate Trip Cost</button>
-        </form>
-        <p id="planning--cost" class="planning--text">Estimated Cost:</p>
-        <button class="button" type="button" name="button">Add to Trips</button>
-      </section>
-      <section class="trips" id="trips">
-        <template id="trip--template">
-          <article class="trip--card">
-            <h4 class="card--title" id="card--destination">Hawaii</h4>
-            <h5 class="card--header">Details</h5>
-            <p class="card--text" id="card--date">Start Date: Jan 10, 2010</p>
-            <p class="card--text" id="card--duration">Duration: 7 Days</p>
-            <p class="card--text" id="card--travelers">Travelers: 3 Adults</p>
-            <h5 class="card--header">Cost Per Person</h5>
-            <p class="card--text" id="card--lodging">Lodging Cost Per Day: $80</p>
-            <p class="card--text" id="card--flight">Flight Cost: $600</p>
+      <section class="dashboard">
+        <article class="welcome" id="welcome">
+          <h2>Welcome User!</h2>
+          <h3>Total Spent This Year:</h3>
+          <p>$400.55</p>
+        </article>
+        <article class="planning" id="planning">
+          <h3 class="planning--title">Plan a Trip</h3>
+          <form class="planning--form" action="index.html" method="post">
+            <table class="form--table">
+              <thead>
+                <tr>
+                  <td><label for="planning--date">Start Date</label></td>
+                  <td><label for="planning--duration">Number of Days</label></td>
+                  <td><label for="planning--travelers">Number of Travelers</label></td>
+                  <td><label for="planning--destination">Travel Destination</label></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input class="planning--date" id="planning--date" type="date" name="start date" value=""></td>
+                  <td>
+                    <select id="planning--duration" class="planning--dropdown" name="Days" value="Number">
+                      <option value="1">1</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select id="planning--travelers" class="planning--dropdown" name="Travelers">
+                      <option value="1">1</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select id="planning--destination" class="planning--dropdown" name="Destination">
+                      <option value="Hawaii">Hawaii</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td><p id="planning--cost" class="planning--text">Estimated Cost: $350.50</p></td>
+                </tr>
+              </tfoot>
+            </table>
+            <div class="form--bottom">
+              <button class="button" type="button" name="button">Calculate Trip Cost</button>
+              <button class="button" type="button" name="button">Add to Trips</button>
+            </div>
+          </form>
+        </article>
+        <section class="trips" id="trips">
+          <template id="trip--template">
+            <article class="trip--card">
+              <h4 class="card--title" id="card--destination">Hawaii</h4>
+              <h5 class="card--header">Details</h5>
+              <p class="card--text" id="card--date">Start Date: Jan 10, 2010</p>
+              <p class="card--text" id="card--duration">Duration: 7 Days</p>
+              <p class="card--text" id="card--travelers">Travelers: 3 Adults</p>
+              <h5 class="card--header">Cost Per Person</h5>
+              <p class="card--text" id="card--lodging">Lodging Cost Per Day: $80</p>
+              <p class="card--text" id="card--flight">Flight Cost: $600</p>
+            </article>
+          </template>
+          <article id="trip--present" class="trip--article">
+            <h3>Present</h3>
           </article>
-        </template>
-        <article id="trip--present" class="trip--article">
-          <h3>Present</h3>
-        </article>
-        <article id="trip--upcoming" class="trip--article">
-          <h3>Upcoming</h3>
-        </article>
-        <article id="trip--pending" class="trip--article">
-          <h3>Pending</h3>
-        </article>
-        <article id="trip--previous" class="trip--article">
-          <h3>Previous</h3>
-        </article>
+          <article id="trip--upcoming" class="trip--article">
+            <h3>Upcoming</h3>
+          </article>
+          <article id="trip--pending" class="trip--article">
+            <h3>Pending</h3>
+          </article>
+          <article id="trip--previous" class="trip--article">
+            <h3>Previous</h3>
+          </article>
+        </section>
       </section>
     </main>
   </body>

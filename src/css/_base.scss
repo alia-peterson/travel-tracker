@@ -1,6 +1,6 @@
 body, html {
   background-color: $color-ming;
-  font-family: 'Yusei Magic', sans-serif;
+  font-family: $font-primary;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -9,6 +9,18 @@ body, html {
 h3 {
   margin: 1rem 0 1rem 0;
   padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.welcome {
+  background-color: $color-honey;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .header {
@@ -23,12 +35,27 @@ h3 {
     display: flex;
   }
 
+  .slogan {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  button {
+    @include button-primary;
+  }
+
+  h2 {
+    margin: 0;
+  }
+
   img {
     height: 40px;
   }
 }
 
-.container {
+.dashboard {
   display: grid;
   grid-gap: 0.5rem;
   grid-template-areas:
@@ -37,16 +64,6 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 2fr;
   height: 90vh;
-}
-
-.welcome {
-  // align-items: center;
-  background-color: $color-honey;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  // justify-content: space-between;
-  padding: 1rem;
 }
 
 #welcome {
