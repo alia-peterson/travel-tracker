@@ -20,7 +20,6 @@ const travelerPassword = document.querySelector('#pass-traveler')
 
 let currentTraveler
 
-
 // EVENT LISTENERS
 travelerLoginButton.addEventListener('click', authenticateUser)
 agentLoginButton.addEventListener('click', authenticateUser)
@@ -32,6 +31,8 @@ const destinationsResponse = fetchApi.getAllDestinations()
 
 // USER INFORMATION POPULATION
 function authenticateUser() {
+  domUpdates.clearTripDisplays()
+
   if (travelerUsername.value.includes('traveler') &&
       travelerPassword.value === 'travel2020') {
     const travelerID = travelerUsername.value.slice(8)
@@ -74,6 +75,9 @@ function findDestinationInformation(destinations) {
     const newDestination = new Destination(place)
     domUpdates.addDestinationInformation(trip, newDestination)
   })
+
+  const totalSpent = currentTraveler.calculateTotalSpent(destinations)
+  domUpdates.addCostToProfile(totalSpent)
 }
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD

@@ -1,6 +1,10 @@
 const welcomeMessage = document.querySelector('#welcome--message')
+const welcomeTotalSpent = document.querySelector('#welcome--cost')
 const tripTemplate = document.querySelector('#trip--template')
 const tripPrevious = document.querySelector('#trip--previous')
+const tripPresent = document.querySelector('#trip--present')
+const tripUpcoming = document.querySelector('#trip--upcoming')
+const tripPending = document.querySelector('#trip--pending')
 
 const domUpdates = {
   populateTravelerInformation(currentTraveler) {
@@ -22,6 +26,17 @@ const domUpdates = {
     tripCard.querySelector('#card--flight').innerText = `Flight Cost: $${place.flightCostPerPerson}`
 
     tripPrevious.appendChild(tripCard)
+  },
+
+  clearTripDisplays() {
+    tripPrevious.querySelectorAll('article').forEach(item => item.remove())
+    tripPresent.querySelectorAll('article').forEach(item => item.remove())
+    tripUpcoming.querySelectorAll('article').forEach(item => item.remove())
+    tripPending.querySelectorAll('article').forEach(item => item.remove())
+  },
+
+  addCostToProfile(totalCost) {
+    welcomeTotalSpent.innerText = `$${totalCost}`
   }
 }
 

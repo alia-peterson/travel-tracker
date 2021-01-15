@@ -15,6 +15,25 @@ class Traveler {
       }
     })
   }
+
+  calculateTotalSpent(destinations) {
+    let totalCost = 0
+
+    this.trips.forEach(trip => {
+      const place = destinations.find(dest => dest.id === trip.destinationID)
+
+      const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
+      const totalFlight = place.estimatedFlightCostPerPerson
+      const totalPerTrip = totalLodging + totalFlight
+
+      totalCost += totalPerTrip
+    })
+
+    return (totalCost * 1.1).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
 }
 
 module.exports = Traveler
