@@ -1,10 +1,13 @@
 const welcomeMessage = document.querySelector('#welcome--message')
 const welcomeTotalSpent = document.querySelector('#welcome--cost')
-const tripTemplate = document.querySelector('#trip--template')
-const tripPrevious = document.querySelector('#trip--previous')
-const tripPresent = document.querySelector('#trip--present')
-const tripUpcoming = document.querySelector('#trip--upcoming')
-const tripPending = document.querySelector('#trip--pending')
+
+const trips = {
+  Template: document.querySelector('#trip--template'),
+  Previous: document.querySelector('#trip--previous'),
+  Present: document.querySelector('#trip--present'),
+  Upcoming: document.querySelector('#trip--upcoming'),
+  Pending: document.querySelector('#trip--pending')
+}
 
 const domUpdates = {
   populateTravelerInformation(currentTraveler) {
@@ -15,7 +18,7 @@ const domUpdates = {
   },
 
   addDestinationInformation(trip, place) {
-    const tripCard = tripTemplate.content.cloneNode(true)
+    const tripCard = trips.Template.content.cloneNode(true)
     tripCard.querySelector('#card--destination').innerText = place.destination
     tripCard.querySelector('#card--image').src = place.image
     tripCard.querySelector('#card--image').alt = place.alt
@@ -25,14 +28,15 @@ const domUpdates = {
     tripCard.querySelector('#card--lodging').innerText = `Lodging Cost Per Day: $${place.lodgingCostPerDay}`
     tripCard.querySelector('#card--flight').innerText = `Flight Cost: $${place.flightCostPerPerson}`
 
-    tripPrevious.appendChild(tripCard)
+    const status = trip.determineTripStatus()
+    trips[status].appendChild(tripCard)
   },
 
   clearTripDisplays() {
-    tripPrevious.querySelectorAll('article').forEach(item => item.remove())
-    tripPresent.querySelectorAll('article').forEach(item => item.remove())
-    tripUpcoming.querySelectorAll('article').forEach(item => item.remove())
-    tripPending.querySelectorAll('article').forEach(item => item.remove())
+    trips.Previous.querySelectorAll('article').forEach(item => item.remove())
+    trips.Present.querySelectorAll('article').forEach(item => item.remove())
+    trips.Upcoming.querySelectorAll('article').forEach(item => item.remove())
+    trips.Pending.querySelectorAll('article').forEach(item => item.remove())
   },
 
   addCostToProfile(totalCost) {

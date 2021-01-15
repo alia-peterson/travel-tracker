@@ -13,13 +13,16 @@ import Destination from './destination'
 const travelerLoginButton = document.querySelector('#button-traveler')
 const agentLoginButton = document.querySelector('#button-agent')
 const logoffButton = document.querySelector('#button-logoff')
+const addToTripsButton = document.querySelector('#button-add-trip')
 const dashboardView = document.querySelector('.dashboard')
 const loginView = document.querySelector('.login')
 const travelerUsername = document.querySelector('#name-traveler')
 const travelerPassword = document.querySelector('#pass-traveler')
 const destinationDropdown = document.querySelector('#planning--destination')
+const dateInput = document.querySelector('#planning--date')
 const durationDropdown = document.querySelector('#planning--duration')
 const travelersDropdown = document.querySelector('#planning--travelers')
+const estimatedCostOfTrip = document.querySelector('#planning--cost')
 
 const allDestinations = []
 let currentTraveler
@@ -28,6 +31,7 @@ let currentTraveler
 travelerLoginButton.addEventListener('click', authenticateUser)
 agentLoginButton.addEventListener('click', authenticateUser)
 logoffButton.addEventListener('click', toggleScreen)
+addToTripsButton.addEventListener('click', addToPendingTrips)
 destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
@@ -48,6 +52,7 @@ Promise.all([destinationsResponse])
 // USER INFORMATION POPULATION
 function authenticateUser() {
   domUpdates.clearTripDisplays()
+  resetPlanningForm()
 
   if (travelerUsername.value.includes('traveler') &&
       travelerPassword.value === 'travel2020') {
@@ -86,6 +91,8 @@ function findTravelerTrips(allTrips) {
 }
 
 function populateDropdowns() {
+  const today = new Date()
+
   alphabetizeDestinations(allDestinations)
 
   domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
@@ -96,8 +103,7 @@ function populateDropdowns() {
 function findDestinationInformation(destinations) {
   currentTraveler.trips.forEach(trip => {
     const place = findDestination(trip.destinationID)
-    const newDestination = new Destination(place)
-    domUpdates.addDestinationInformation(trip, newDestination)
+    domUpdates.addDestinationInformation(trip, place)
   })
 
   const totalSpent = currentTraveler.calculateTotalSpent(destinations)
@@ -105,8 +111,7 @@ function findDestinationInformation(destinations) {
 }
 
 function findDestination(destinationID) {
-  const place = allDestinations.find(dest => dest.id === destinationID)
-  return place
+  return allDestinations.find(dest => dest.id === destinationID)
 }
 
 function alphabetizeDestinations(destinations) {
@@ -119,8 +124,32 @@ function alphabetizeDestinations(destinations) {
   })
 }
 
-function updateEstimatedCost() {
+function updateEstimatedCost(event) {
+  if (!destinationDropdown.value) {
+    return
+  }
 
+  const destination = findDestination(Number(destinationDropdown.value))
+  const numDays = durationDropdown.value
+  const numPeople = travelersDropdown.value
+
+  const lodgingCost = destination.lodgingCostPerDay * numDays * numPeople
+  const flightCost = destination.flightCostPerPerson * numPeople
+  const price = lodgingCost + flightCost
+
+  estimatedCostOfTrip.innerText = `Estimated Cost: $${price}`
+}
+
+function addToPendingTrips() {
+  console.log('hiyee');
+}
+
+function resetPlanningForm() {
+  destinationDropdown.value = 0
+  durationDropdown.value = 1
+  travelersDropdown.value = 1
+
+  estimatedCostOfTrip.innerText = `Estimated Cost: $0.00`
 }
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD

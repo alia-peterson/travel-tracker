@@ -20,13 +20,15 @@ class Traveler {
     let totalCost = 0
 
     this.trips.forEach(trip => {
-      const place = destinations.find(dest => dest.id === trip.destinationID)
+      if (trip.status !== 'pending') {
+        const place = destinations.find(dest => dest.id === trip.destinationID)
 
-      const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
-      const totalFlight = place.estimatedFlightCostPerPerson
-      const totalPerTrip = totalLodging + totalFlight
+        const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
+        const totalFlight = place.estimatedFlightCostPerPerson
+        const totalPerTrip = totalLodging + totalFlight
 
-      totalCost += totalPerTrip
+        totalCost += totalPerTrip
+      }
     })
 
     return (totalCost * 1.1).toLocaleString('en-US', {
