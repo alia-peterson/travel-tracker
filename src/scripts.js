@@ -113,8 +113,6 @@ function addToPendingTrips() {
   createNewTrip()
   resetPlanningForm()
   clearAllTripDisplays()
-
-  console.log(dateInput.value);
 }
 
 function createNewTrip() {
@@ -134,7 +132,6 @@ function createNewTrip() {
       tripInformation.id = responses[0].trips.length + 1
       const newTrip = new Trip(tripInformation)
       newTrip.formatDate()
-      console.log(newTrip);
       currentTraveler.trips.push(newTrip)
 
       findDestinationInformation(responses[1].destinations)

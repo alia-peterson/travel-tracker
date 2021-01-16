@@ -54,45 +54,27 @@
         <article class="planning" id="planning">
           <h3 class="planning--title">Plan a Trip</h3>
           <form class="planning--form" id="planning--form" action="index.html" method="post">
-            <table class="form--table">
-              <thead>
-                <tr>
-                  <td><label for="planning--date">Start Date</label></td>
-                  <td><label for="planning--destination">Travel Destination</label></td>
-                  <td class="right-justify"><label for="planning--duration">Number of Days</label></td>
-                  <td class="right-justify"><label for="planning--travelers">Number of Travelers</label></td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input id="planning--date" class="planning--date" type="date" name="start date" value="" required>
-                  </td>
-                  <td>
-                    <select id="planning--destination" class="planning--dropdown" name="Destination">
-                      <option value="0" disabled selected>Select a Destination</option>
-                    </select>
-                  </td>
-                  <td class="right-justify">
-                    <select id="planning--duration" class="planning--dropdown" name="Days" value="Number"></select>
-                  </td>
-                  <td class="right-justify">
-                    <select id="planning--travelers" class="planning--dropdown" name="Travelers"></select>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="4"><p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p></td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4"><p id="planning--cost" class="planning--text">Estimated Cost: $0.00</p></td>
-                </tr>
-              </tfoot>
-            </table>
-            <div class="form--bottom">
-              <button id="button-add-trip" class="button" form="planning--form" type="button" name="button" disabled>Add to Trips</button>
+            <div class="form--section">
+              <label for="planning--date">Start Date</label>
+              <input id="planning--date" class="planning--date" type="date" name="start date" value="" required>
             </div>
+            <div class="form--section">
+              <label for="planning--destination">Travel Destination</label>
+              <select id="planning--destination" class="planning--dropdown" name="Destination">
+                <option value="0" disabled selected>Select a Destination</option>
+              </select>
+            </div>
+            <div class="form--section">
+              <label for="planning--duration">Number of Days</label>
+              <select id="planning--duration" class="planning--dropdown" name="Days" value="Number"></select>
+            </div>
+            <div class="form--section">
+              <label for="planning--travelers">Number of Travelers</label>
+              <select id="planning--travelers" class="planning--dropdown" name="Travelers"></select>
+            </div>
+            <p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p>
+            <p id="planning--cost" class="planning--text">Estimated Cost: $0.00</p>
+            <button id="button-add-trip" class="button" form="planning--form" type="button" name="button" disabled>Add to Trips</button>
           </form>
         </article>
         <section class="trips" id="trips">

@@ -2,11 +2,19 @@
   background-color: $color-jungle-green;
   border-radius: 1rem;
   color: $color-almond;
-  max-height: 30vh;
+  // max-height: 28vh;
   padding: 1rem;
 
+  &--form {
+    width: 100%;
+  }
+
   &--text {
-    margin-bottom: 0;
+    margin: 0.2rem 0 0 0;
+  }
+
+  &--title {
+    margin: 0;
   }
 
   .button {
@@ -14,25 +22,16 @@
   }
 }
 
-.form--table {
-  width: 100%;
-}
-
-.form--bottom {
-  align-items: center;
+.form--section {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  // margin-top: 2rem;
 }
 
 .planning--dropdown {
   height: 24px;
   min-width: 48px;
-}
-
-.right-justify {
-  text-align: right;
 }
 
 #planning--warning {
