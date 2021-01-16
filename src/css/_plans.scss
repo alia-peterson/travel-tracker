@@ -2,10 +2,23 @@
   background-color: $color-jungle-green;
   border-radius: 1rem;
   color: $color-almond;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   // max-height: 28vh;
   padding: 1rem;
 
-  &--form {
+  &--bottom {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &--inputs {
+    @include grid-presets-4x1;
+    grid-template-areas:
+      "date destination duration travelers";
     width: 100%;
   }
 
@@ -37,4 +50,20 @@
 #planning--warning {
   font-size: 14px;
   margin: 0;
+}
+
+#input-date {
+  grid-area: date;
+}
+
+#input-destination {
+  grid-area: destination;
+}
+
+#input-duration {
+  grid-area: duration;
+}
+
+#input-travelers {
+  grid-area: travelers;
 }

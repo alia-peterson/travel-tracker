@@ -1,22 +1,18 @@
-.trips {
-  display: grid;
-  grid-gap: 0.5rem;
+.trip {
+  @include grid-presets-4x1
   grid-template-areas:
     "previous present upcoming pending";
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  // max-height: 60vh;
-}
 
-.trip--article {
-  align-items: center;
-  background-color: $color-eagle-green;
-  border-radius: 1rem;
-  color: $color-almond;
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  padding: 1rem;
+  &--article {
+    align-items: center;
+    background-color: $color-eagle-green;
+    border-radius: 1rem;
+    color: $color-almond;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    padding: 1rem;
+  }
 }
 
 .trip--card {
@@ -30,22 +26,9 @@
   text-align: center;
   width: 90%;
 
-  .card--header {
-    position: relative;
-    width: 100%;
-  }
-
-  .card--image {
-    top: 0;
-    right: 0;
-    height: 100px;
-    position: absolute;
-    object-fit: cover;
-    opacity: 0;
-    width: 100%;
-  }
-
   &:hover {
+    cursor: default;
+    
     .card--image {
       opacity: 50%;
       transition: .8s ease;
@@ -67,6 +50,27 @@
   p {
     font-size: 14px;
     margin: 0.5rem 0 0.5rem 0;
+  }
+}
+
+.card {
+  &--header {
+    position: relative;
+    width: 100%;
+  }
+
+  &--body {
+    padding: 0.4rem;
+  }
+
+  &--image {
+    top: 0;
+    right: 0;
+    height: 100px;
+    position: absolute;
+    object-fit: cover;
+    opacity: 0;
+    width: 100%;
   }
 }
 

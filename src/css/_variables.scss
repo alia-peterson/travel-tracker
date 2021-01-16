@@ -14,12 +14,19 @@
   }
 }
 
+@mixin grid-presets-4x1 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
 $color-eagle-green: #003844; // darkest green
 $color-jungle-green: #005256; // mid green
 $color-ming: #3D767B; // light green
 $color-amaranth: #F194B4; // pink
 $color-honey: #FFB100; // bright yellow
 $color-maize: #FFCE63; // light yellow
-$color-almond: #FFEBC6; // light tan 
+$color-almond: #FFEBC6; // light tan
 
 $font-primary: 'Yusei Magic', sans-serif;
