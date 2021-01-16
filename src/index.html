@@ -59,8 +59,8 @@
                 <tr>
                   <td><label for="planning--date">Start Date</label></td>
                   <td><label for="planning--destination">Travel Destination</label></td>
-                  <td><label for="planning--duration">Number of Days</label></td>
-                  <td><label for="planning--travelers">Number of Travelers</label></td>
+                  <td class="right-justify"><label for="planning--duration">Number of Days</label></td>
+                  <td class="right-justify"><label for="planning--travelers">Number of Travelers</label></td>
                 </tr>
               </thead>
               <tbody>
@@ -73,12 +73,15 @@
                       <option value="0" disabled selected>Select a Destination</option>
                     </select>
                   </td>
-                  <td>
+                  <td class="right-justify">
                     <select id="planning--duration" class="planning--dropdown" name="Days" value="Number"></select>
                   </td>
-                  <td>
+                  <td class="right-justify">
                     <select id="planning--travelers" class="planning--dropdown" name="Travelers"></select>
                   </td>
+                </tr>
+                <tr>
+                  <td colspan="4"><p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p></td>
                 </tr>
               </tbody>
               <tfoot>

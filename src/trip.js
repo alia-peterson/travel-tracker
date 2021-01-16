@@ -25,7 +25,13 @@ class Trip {
   }
 
   formatDate() {
-    const dateParts = this.date.split('/')
+    let dateParts
+
+    if (this.date.includes('/')) {
+      dateParts = this.date.split('/')
+    } else if (this.date.includes('-')) {
+      dateParts = this.date.split('-')
+    }
     const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
     this.date = newDate.toDateString()
   }

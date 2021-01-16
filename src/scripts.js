@@ -56,11 +56,7 @@ Promise.all([destinationsResponse])
 
 // USER INFORMATION POPULATION
 function authenticateUser() {
-  domUpdates.clearTripDisplays('Previous')
-  domUpdates.clearTripDisplays('Present')
-  domUpdates.clearTripDisplays('Upcoming')
-  domUpdates.clearTripDisplays('Pending')
-
+  clearAllTripDisplays()
   resetPlanningForm()
 
   if (travelerUsername.value.includes('traveler') &&
@@ -101,13 +97,48 @@ function findTravelerTrips(allTrips) {
   currentTraveler.sortTripsByDate()
 }
 
+function clearAllTripDisplays() {
+  domUpdates.clearTripDisplays('Previous')
+  domUpdates.clearTripDisplays('Present')
+  domUpdates.clearTripDisplays('Upcoming')
+  domUpdates.clearTripDisplays('Pending')
+}
+
 function displayAmoutSpent(destinations) {
   const totalSpent = currentTraveler.calculateTotalSpent(destinations)
   domUpdates.addCostToProfile(totalSpent)
 }
 
 function addToPendingTrips() {
-  console.log('hiyee');
+  createNewTrip()
+  resetPlanningForm()
+  clearAllTripDisplays()
+
+  console.log(dateInput.value);
+}
+
+function createNewTrip() {
+  const tripInformation = {
+    id: 0,
+    userID: Number(currentTraveler.id),
+    destinationID: Number(destinationDropdown.value),
+    travelers: Number(travelersDropdown.value),
+    date: dateInput.value,
+    duration: Number(durationDropdown.value),
+    status: 'pending',
+    suggestedActivities: []
+  }
+
+  Promise.all([tripsResponse, destinationsResponse])
+    .then(responses => {
+      tripInformation.id = responses[0].trips.length + 1
+      const newTrip = new Trip(tripInformation)
+      newTrip.formatDate()
+      console.log(newTrip);
+      currentTraveler.trips.push(newTrip)
+
+      findDestinationInformation(responses[1].destinations)
+    })
 }
 
 
@@ -156,11 +187,13 @@ function updateEstimatedCost(event) {
 }
 
 function validateForm() {
-  if (destinationDropdown.value && dateInput.value) {
-    const selectedDate = new Date(dateInput.value)
-    const daysPassed = 1
-    const dateComparison = selectedDate - todayDate
+  const selectedDate = new Date(dateInput.value)
+  const dateDifference = determineDateDifference(selectedDate)
+
+  if (destinationDropdown.value > 0 && dateDifference > 0) {
     addToTripsButton.disabled = false
+  } else {
+    addToTripsButton.disabled = true
   }
 }
 
@@ -170,15 +203,15 @@ function findDestinationInformation(destinations) {
   currentTraveler.trips.forEach(trip => {
     const place = findDestination(trip.destinationID)
     const daysPassed = determineDateDifference(trip.date)
-    
+
     domUpdates.displayDestinationInformation(trip, place, daysPassed)
   })
 }
 
 function determineDateDifference(dateInput) {
   const today = new Date()
-  const diffTime = Date.parse(dateInput) - today
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  const timeDifference = Date.parse(dateInput) - today
+  return Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
 }
 
 function findDestination(destinationID) {
