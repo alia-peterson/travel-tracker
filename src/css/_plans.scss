@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  // max-height: 28vh;
   padding: 1rem;
 
   &--bottom {
@@ -17,6 +16,7 @@
 
   &--inputs {
     @include grid-presets-4x1;
+    grid-gap: 1rem;
     grid-template-areas:
       "date destination duration travelers";
     width: 100%;
@@ -39,7 +39,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .planning--dropdown {

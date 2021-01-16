@@ -121,7 +121,7 @@ function createNewTrip() {
     userID: Number(currentTraveler.id),
     destinationID: Number(destinationDropdown.value),
     travelers: Number(travelersDropdown.value),
-    date: dateInput.value,
+    date: formatDateForPost(dateInput.value),
     duration: Number(durationDropdown.value),
     status: 'pending',
     suggestedActivities: []
@@ -135,6 +135,7 @@ function createNewTrip() {
       currentTraveler.trips.push(newTrip)
 
       findDestinationInformation(responses[1].destinations)
+      fetchApi.postNewTrip(tripInformation)
     })
 }
 
@@ -175,7 +176,11 @@ function updateEstimatedCost(event) {
 
     const lodgingCost = destination.lodgingCostPerDay * numDays * numPeople
     const flightCost = destination.flightCostPerPerson * numPeople
-    const price = lodgingCost + flightCost
+    
+    const price = ((lodgingCost + flightCost) * 1.1).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
 
     estimatedCostOfTrip.innerText = `Estimated Cost: $${price}`
   }
@@ -189,6 +194,7 @@ function validateForm() {
 
   if (destinationDropdown.value > 0 && dateDifference > 0) {
     addToTripsButton.disabled = false
+
   } else {
     addToTripsButton.disabled = true
   }
@@ -205,14 +211,19 @@ function findDestinationInformation(destinations) {
   })
 }
 
+function findDestination(destinationID) {
+  return allDestinations.find(dest => dest.id === destinationID)
+}
+
 function determineDateDifference(dateInput) {
   const today = new Date()
   const timeDifference = Date.parse(dateInput) - today
   return Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
 }
 
-function findDestination(destinationID) {
-  return allDestinations.find(dest => dest.id === destinationID)
+function formatDateForPost(dateInput) {
+  const dateParts = dateInput.split('-')
+  return `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`
 }
 
 
