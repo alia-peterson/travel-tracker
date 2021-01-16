@@ -2,21 +2,68 @@
   background-color: $color-jungle-green;
   border-radius: 1rem;
   color: $color-almond;
-  max-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   padding: 1rem;
+
+  &--bottom {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &--inputs {
+    @include grid-presets-4x1;
+    grid-gap: 1rem;
+    grid-template-areas:
+      "date destination duration travelers";
+    width: 100%;
+  }
+
+  &--text {
+    margin: 0.2rem 0 0 0;
+  }
+
+  &--title {
+    margin: 0;
+  }
 
   .button {
     @include button-primary;
   }
+}
 
-  .form--table {
-    width: 100%;
-  }
+.form--section {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
-  .form--bottom {
-    align-items: center;
-    display: flex;
-    justify-content: space-evenly;
-    // margin-top: 2rem;
-  }
+.planning--dropdown {
+  height: 24px;
+  min-width: 48px;
+}
+
+#planning--warning {
+  font-size: 14px;
+  margin: 0;
+}
+
+#input-date {
+  grid-area: date;
+}
+
+#input-destination {
+  grid-area: destination;
+}
+
+#input-duration {
+  grid-area: duration;
+}
+
+#input-travelers {
+  grid-area: travelers;
 }
