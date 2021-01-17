@@ -5,7 +5,7 @@
   color: $color-almond;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   max-height: 30vh;
   padding: 1rem;
 
@@ -39,10 +39,6 @@
   }
 }
 
-.planning-agent {
-  max-height: none;
-}
-
 .form--section {
   align-items: flex-start;
   display: flex;
@@ -53,6 +49,33 @@
 .planning--dropdown {
   height: 24px;
   min-width: 48px;
+}
+
+.planning-agent {
+  align-items: center;
+  justify-content: flex-start;
+  max-height: none;
+
+  .trip--card {
+    margin: 1rem;
+    width: 300px;
+
+    h3 {
+      margin: 1rem 0 1rem 0;
+    }
+  }
+}
+
+.traveler--header {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.traveler--cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: scroll;
 }
 
 #planning--warning {

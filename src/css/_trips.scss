@@ -1,22 +1,28 @@
-.trip {
+.trip-user {
   @include grid-presets-4x1
   grid-template-areas:
     "previous present upcoming pending";
   overflow: hidden;
 
-  &--article {
-    align-items: center;
-    background-color: $color-eagle-green;
-    border-radius: 1rem;
-    color: $color-almond;
-    display: flex;
-    flex-direction: column;
-    overflow: scroll;
-    padding: 1rem;
+  h2 {
+    margin: 0;
   }
 }
 
-.trip--card {
+.trip--article,
+.trip-agent {
+  align-items: center;
+  background-color: $color-eagle-green;
+  border-radius: 1rem;
+  color: $color-almond;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  padding: 1rem;
+}
+
+.trip--card,
+.user--card {
   align-items: center;
   background-color: $color-amaranth;
   color: $color-eagle-green;
@@ -36,13 +42,13 @@
     }
   }
 
-  h4 {
+  h3 {
     font-size: 18px;
     margin: 2rem 0 2rem 0;
     z-index: 1;
   }
 
-  h5 {
+  h4 {
     font-size: 16px;
     margin: 0.5rem 0 0.5rem 0;
     text-decoration: underline;

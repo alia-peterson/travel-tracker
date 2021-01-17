@@ -16,7 +16,7 @@ class Traveler {
     })
   }
 
-  calculateTotalSpent(destinations, year) {
+  calculateSpending(destinations, year) {
     let totalCost = 0
 
     this.trips.forEach(trip => {
@@ -24,12 +24,11 @@ class Traveler {
       const tripYear = tripDate.getFullYear()
 
       if (tripYear === year && trip.status !== 'pending') {
-        const place = destinations.find(dest => dest.id === trip.destinationID)
+        const totalPerTrip = this.calculateCostPerTrip(trip, destinations)
+        totalCost += totalPerTrip
 
-        const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
-        const totalFlight = place.estimatedFlightCostPerPerson
-        const totalPerTrip = totalLodging + totalFlight
-
+      } else if (!year && trip.status !== 'pending') {
+        const totalPerTrip = this.calculateCostPerTrip(trip, destinations)
         totalCost += totalPerTrip
       }
     })
@@ -38,6 +37,14 @@ class Traveler {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
+  }
+
+  calculateCostPerTrip(trip, destinations) {
+    const place = destinations.find(dest => dest.id === trip.destinationID)
+
+    const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
+    const totalFlight = place.estimatedFlightCostPerPerson
+    return totalLodging + totalFlight
   }
 }
 

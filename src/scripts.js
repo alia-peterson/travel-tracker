@@ -46,6 +46,7 @@ dateInput.addEventListener('change', validateForm)
 
 
 // FETCH SERVER DATA
+const travelersResponse = fetchApi.getTravelers()
 const tripsResponse = fetchApi.getAllTrips()
 const destinationsResponse = fetchApi.getAllDestinations()
 
@@ -76,19 +77,31 @@ function authenticateUser(event) {
 }
 
 function loadTravelerDashboard() {
+  logOnWebsite(travelerDashboard)
   clearAllTripDisplays()
   resetPlanningForm()
   const travelerID = travelerUsername.value.slice(8)
 
   fetchApi.getSpecificTraveler(travelerID)
-  .then(traveler => createTravelerProfile(traveler))
-
-  logOnWebsite(travelerDashboard)
+    .then(traveler => createTravelerProfile(traveler))
 }
 
 function loadAgentDashboard() {
   logOnWebsite(agentDashboard)
 
+  Promise.all([travelersResponse, tripsResponse, destinationsResponse])
+    .then(responses => {
+      const allTravelers = responses[0].travelers
+      const allTrips = responses[1].trips
+      const allLocations = responses[2].destinations
+
+      allTravelers.forEach(traveler => {
+        const newTraveler = new Traveler(traveler)
+        findTravelerTrips(allTrips, newTraveler)
+        domUpdates.displayTravelerInformation(newTraveler, allLocations)
+      })
+
+    })
 }
 
 function createTravelerProfile(traveler) {
@@ -103,19 +116,19 @@ function createTravelerProfile(traveler) {
     })
 }
 
-function findTravelerTrips(allTrips) {
+function findTravelerTrips(allTrips, selectedTraveler = currentTraveler) {
   const travelerTrips = allTrips.filter(trip => {
-    return trip.userID === currentTraveler.id
+    return trip.userID === selectedTraveler.id
   })
 
   travelerTrips.forEach(trip => {
     const newTrip = new Trip(trip)
 
     newTrip.formatDate()
-    currentTraveler.trips.push(newTrip)
+    selectedTraveler.trips.push(newTrip)
   })
 
-  currentTraveler.sortTripsByDate()
+  selectedTraveler.sortTripsByDate()
 }
 
 function clearAllTripDisplays() {
@@ -126,10 +139,11 @@ function clearAllTripDisplays() {
 }
 
 function displayAmoutSpent(destinations) {
-  const previousSpending = currentTraveler.calculateTotalSpent(destinations, 2020)
-  const presentSpending = currentTraveler.calculateTotalSpent(destinations, 2021)
-  domUpdates.addCostToProfile(totalSpentPrevious, previousSpending)
-  domUpdates.addCostToProfile(totalSpentPresent, presentSpending)
+  const previous = currentTraveler.calculateSpending(destinations, 2020)
+  const present = currentTraveler.calculateSpending(destinations, 2021)
+
+  domUpdates.addCostToProfile(totalSpentPrevious, previous)
+  domUpdates.addCostToProfile(totalSpentPresent, present)
 }
 
 function addToPendingTrips() {

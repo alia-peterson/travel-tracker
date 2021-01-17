@@ -1,5 +1,8 @@
-const welcomeMessage = document.querySelector('#welcome--message')
+import Traveler from './traveler'
 
+const welcomeMessage = document.querySelector('#welcome--message')
+const travelerTemplate = document.querySelector('#traveler--template')
+const travelerCards = document.querySelector('#traveler--cards')
 const trips = {
   Template: document.querySelector('#trip--template'),
   Previous: document.querySelector('#trip--previous'),
@@ -57,6 +60,33 @@ const domUpdates = {
       newOption.innerText = number
       dropdown.appendChild(newOption)
     })
+  },
+
+  displayTravelerInformation(traveler, destinations) {
+    const newTravelerCard = travelerTemplate.content.cloneNode(true)
+    newTravelerCard.querySelector('#traveler--name').innerText = traveler.name
+    newTravelerCard.querySelector('#traveler--spent').innerText = traveler.calculateSpending(destinations)
+
+    traveler.trips.forEach(trip => {
+      const location = destinations.find(place => place.id === trip.destinationID)
+      this.buildTableElements(trip, location, newTravelerCard)
+    })
+
+    travelerCards.appendChild(newTravelerCard)
+  },
+
+  buildTableElements(trip, location, card) {
+    const travelerLocations = card.querySelector('#traveler--locations')
+    const newRow = document.createElement('tr')
+    const locationCell = document.createElement('td')
+    const statusCell = document.createElement('td')
+
+    locationCell.innerText = location.destination
+    statusCell.innerText = trip.status
+
+    travelerLocations.appendChild(newRow)
+    newRow.appendChild(locationCell)
+    newRow.appendChild(statusCell)
   }
 }
 
