@@ -1,5 +1,4 @@
 const welcomeMessage = document.querySelector('#welcome--message')
-const welcomeTotalSpent = document.querySelector('#welcome--cost')
 
 const trips = {
   Template: document.querySelector('#trip--template'),
@@ -36,8 +35,8 @@ const domUpdates = {
     trips[status].querySelectorAll('article').forEach(item => item.remove())
   },
 
-  addCostToProfile(totalCost) {
-    welcomeTotalSpent.innerText = `$${totalCost}`
+  addCostToProfile(yearSpent, totalCost) {
+    yearSpent.innerText = `$${totalCost}`
   },
 
   addDestinationsToDropdown(destinations, dropdown) {

@@ -56,32 +56,58 @@ h3 {
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  justify-content: space-around;
+  max-height: 30vh;
+  padding: 1.5rem;
 }
 
 .container {
   height: 88%;
 }
 
-.dashboard {
+.dashboard-user {
   display: grid;
   grid-gap: 0.5rem;
   grid-template-areas:
-    "welcome planning planning planning"
-    "trips trips trips trips";
+  "welcomeUser planningUser planningUser planningUser"
+  "tripsUser tripsUser tripsUser tripsUser";
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 2fr;
   height: 100%;
 }
 
-#welcome {
-  grid-area: welcome;
+.dashboard-agent {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas:
+    "welcomeAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100%;
 }
 
-#planning {
-  grid-area: planning;
+#welcome-user {
+  grid-area: welcomeUser;
 }
 
-#trips {
-  grid-area: trips;
+#planning-user {
+  grid-area: planningUser;
+}
+
+#trips-user {
+  grid-area: tripsUser;
+}
+
+#welcome-agent {
+  grid-area: welcomeAgent;
+}
+
+#planning-agent {
+  grid-area: planningAgent;
+}
+
+#trips-agent {
+  grid-area: tripsAgent;
 }

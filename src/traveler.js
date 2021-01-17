@@ -16,11 +16,14 @@ class Traveler {
     })
   }
 
-  calculateTotalSpent(destinations) {
+  calculateTotalSpent(destinations, year) {
     let totalCost = 0
 
     this.trips.forEach(trip => {
-      if (trip.status !== 'pending') {
+      const tripDate = new Date(trip.date)
+      const tripYear = tripDate.getFullYear()
+
+      if (tripYear === year && trip.status !== 'pending') {
         const place = destinations.find(dest => dest.id === trip.destinationID)
 
         const totalLodging = place.estimatedLodgingCostPerDay * trip.duration

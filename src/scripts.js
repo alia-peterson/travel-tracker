@@ -15,10 +15,15 @@ const travelerLoginButton = document.querySelector('#button-traveler')
 const agentLoginButton = document.querySelector('#button-agent')
 const logoffButton = document.querySelector('#button-logoff')
 const addToTripsButton = document.querySelector('#button-add-trip')
-const dashboardView = document.querySelector('.dashboard')
+const travelerDashboard = document.querySelector('.dashboard-user')
+const agentDashboard = document.querySelector('.dashboard-agent')
 const loginView = document.querySelector('.login')
 const travelerUsername = document.querySelector('#name-traveler')
 const travelerPassword = document.querySelector('#pass-traveler')
+const agentUsername = document.querySelector('#name-agent')
+const agentPassword = document.querySelector('#pass-agent')
+const totalSpentPrevious = document.querySelector('#welcome--cost-previous')
+const totalSpentPresent = document.querySelector('#welcome--cost-present')
 const destinationDropdown = document.querySelector('#planning--destination')
 const dateInput = document.querySelector('#planning--date')
 const durationDropdown = document.querySelector('#planning--duration')
@@ -32,7 +37,7 @@ let currentTraveler
 // EVENT LISTENERS
 travelerLoginButton.addEventListener('click', authenticateUser)
 agentLoginButton.addEventListener('click', authenticateUser)
-logoffButton.addEventListener('click', toggleScreen)
+logoffButton.addEventListener('click', logOffWebsite)
 addToTripsButton.addEventListener('click', addToPendingTrips)
 destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
@@ -55,19 +60,35 @@ Promise.all([destinationsResponse])
 
 
 // USER INFORMATION POPULATION
-function authenticateUser() {
+function authenticateUser(event) {
+  if (event.target.id === 'button-traveler' &&
+      travelerUsername.value.includes('traveler') &&
+      travelerPassword.value === 'travel2020') {
+
+    loadTravelerDashboard()
+
+  } else if (event.target.id === 'button-agent' &&
+      agentUsername.value === 'agency' &&
+      agentPassword.value === 'travel2020') {
+
+    loadAgentDashboard()
+  }
+}
+
+function loadTravelerDashboard() {
   clearAllTripDisplays()
   resetPlanningForm()
+  const travelerID = travelerUsername.value.slice(8)
 
-  if (travelerUsername.value.includes('traveler') &&
-      travelerPassword.value === 'travel2020') {
-    const travelerID = travelerUsername.value.slice(8)
+  fetchApi.getSpecificTraveler(travelerID)
+  .then(traveler => createTravelerProfile(traveler))
 
-    fetchApi.getSpecificTraveler(travelerID)
-      .then(traveler => createTravelerProfile(traveler))
+  logOnWebsite(travelerDashboard)
+}
 
-    toggleScreen()
-  }
+function loadAgentDashboard() {
+  logOnWebsite(agentDashboard)
+
 }
 
 function createTravelerProfile(traveler) {
@@ -105,8 +126,10 @@ function clearAllTripDisplays() {
 }
 
 function displayAmoutSpent(destinations) {
-  const totalSpent = currentTraveler.calculateTotalSpent(destinations)
-  domUpdates.addCostToProfile(totalSpent)
+  const previousSpending = currentTraveler.calculateTotalSpent(destinations, 2020)
+  const presentSpending = currentTraveler.calculateTotalSpent(destinations, 2021)
+  domUpdates.addCostToProfile(totalSpentPrevious, previousSpending)
+  domUpdates.addCostToProfile(totalSpentPresent, presentSpending)
 }
 
 function addToPendingTrips() {
@@ -176,7 +199,7 @@ function updateEstimatedCost(event) {
 
     const lodgingCost = destination.lodgingCostPerDay * numDays * numPeople
     const flightCost = destination.flightCostPerPerson * numPeople
-    
+
     const price = ((lodgingCost + flightCost) * 1.1).toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -223,13 +246,20 @@ function determineDateDifference(dateInput) {
 
 function formatDateForPost(dateInput) {
   const dateParts = dateInput.split('-')
-  return `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`
+  return dateParts.join('/')
 }
 
 
 // TOGGLE BETWEEN LOGIN AND DASHBOARD
-function toggleScreen() {
-  dashboardView.classList.toggle('hidden')
-  loginView.classList.toggle('hidden')
-  logoffButton.classList.toggle('hidden')
+function logOnWebsite(selectedDashboard) {
+  selectedDashboard.classList.remove('hidden')
+  loginView.classList.add('hidden')
+  logoffButton.classList.remove('hidden')
+}
+
+function logOffWebsite() {
+  loginView.classList.remove('hidden')
+  travelerDashboard.classList.add('hidden')
+  agentDashboard.classList.add('hidden')
+  logoffButton.classList.add('hidden')
 }

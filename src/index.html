@@ -37,21 +37,23 @@
             <article class="login--form">
               <h3>Agent Login</h3>
               <label for="name-agent">Username</label>
-              <input id="user-agent" type="text" name="" value="agency">
+              <input id="name-agent" type="text" name="" value="agency">
               <label for="pass-agent">Password</label>
               <input id="pass-agent" type="text" name="" value="travel2020">
-              <button id="button-agent" type="button" name="button" disabled>Login</button>
+              <button id="button-agent" type="button" name="button">Login</button>
             </article>
           </div>
         </section>
       </section>
-      <section class="dashboard hidden">
-        <article class="welcome" id="welcome">
+      <section class="dashboard-user hidden">
+        <article class="welcome" id="welcome-user">
           <h2 id="welcome--message">Welcome User!</h2>
+          <h3>Total Spent Last Year:</h3>
+          <p id="welcome--cost-previous">$400.55</p>
           <h3>Total Spent This Year:</h3>
-          <p id="welcome--cost">$400.55</p>
+          <p id="welcome--cost-present">$400.55</p>
         </article>
-        <article class="planning" id="planning">
+        <article class="planning-user" id="planning-user">
           <h3 class="planning--title">Plan a Trip</h3>
           <form class="planning--form" id="planning--form" action="index.html" method="post">
             <div class="planning--inputs">
@@ -81,7 +83,7 @@
             </div>
           </form>
         </article>
-        <section class="trip" id="trips">
+        <section class="trip" id="trips-user">
           <template id="trip--template">
             <article class="trip--card">
               <div class="card--header">
@@ -112,6 +114,21 @@
             <h3>Pending</h3>
           </article>
         </section>
+      </section>
+      <section class="dashboard-agent hidden">
+        <article class="welcome" id="welcome-agent">
+          <h2>Welcome User!</h2>
+          <h3>Total Spent Last Year:</h3>
+          <p >$400.55</p>
+          <h3>Total Spent This Year:</h3>
+          <p>$400.55</p>
+        </article>
+        <article class="planning-agent" id="trips-agent">
+
+        </article>
+        <article class="planning-agent" id="planning-agent">
+
+        </article>
       </section>
     </main>
   </body>
