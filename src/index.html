@@ -16,7 +16,7 @@
         <h1><span>travel</span>general</h1>
       </div>
       <div class="slogan">
-        <button id="button-logoff" class="hidden" type="button" name="button">Log Out</button>
+        <button id="button-logoff" class="button-primary hidden" type="button" name="button">Log Out</button>
         <h2>you deserve a vacation</h2>
       </div>
     </header>
@@ -27,32 +27,34 @@
           <div class="login--body">
             <article class="login--form">
               <h3>Traveler Login</h3>
-              <label for="user-traveler">Username</label>
+              <label for="name-traveler">Username</label>
               <input id="name-traveler" type="text" name="" value="traveler2">
               <label for="pass-traveler">Password</label>
               <input id="pass-traveler" type="text" name="" value="travel2020">
-              <button id="button-traveler" type="button" name="button">Login</button>
+              <button id="button-traveler" class="button-secondary" type="button" name="button">Login</button>
             </article>
             <div class="line"></div>
             <article class="login--form">
               <h3>Agent Login</h3>
               <label for="name-agent">Username</label>
-              <input id="user-agent" type="text" name="" value="agency">
+              <input id="name-agent" type="text" name="" value="agency">
               <label for="pass-agent">Password</label>
               <input id="pass-agent" type="text" name="" value="travel2020">
-              <button id="button-agent" type="button" name="button" disabled>Login</button>
+              <button id="button-agent" class="button-secondary" type="button" name="button">Login</button>
             </article>
           </div>
         </section>
       </section>
-      <section class="dashboard hidden">
-        <article class="welcome" id="welcome">
+      <section class="dashboard-user hidden">
+        <article class="welcome" id="welcome-user">
           <h2 id="welcome--message">Welcome User!</h2>
+          <h3>Total Spent Last Year:</h3>
+          <p id="welcome--cost-previous">$400.55</p>
           <h3>Total Spent This Year:</h3>
-          <p id="welcome--cost">$400.55</p>
+          <p id="welcome--cost-present">$400.55</p>
         </article>
-        <article class="planning" id="planning">
-          <h3 class="planning--title">Plan a Trip</h3>
+        <article class="planning-user" id="planning-user">
+          <h2 class="planning--title">Plan a Trip</h2>
           <form class="planning--form" id="planning--form" action="index.html" method="post">
             <div class="planning--inputs">
               <div id="input-date" class="form--section">
@@ -77,41 +79,89 @@
             <p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p>
             <p id="planning--cost" class="planning--text">Estimated Cost: $0.00</p>
             <div class="planning--bottom">
-              <button id="button-add-trip" class="button" form="planning--form" type="button" name="button" disabled>Add to Trips</button>
+              <button id="button-add-trip" class="button-primary" form="planning--form" type="button" name="button" disabled>Add to Trips</button>
             </div>
           </form>
         </article>
-        <section class="trip" id="trips">
+        <section class="trip-user" id="trip-user">
           <template id="trip--template">
             <article class="trip--card">
               <div class="card--header">
-                <h4 class="card--title" id="card--destination">Hawaii</h4>
-                <img class="card--image" id="card--image" src="" alt="">
+                <h3 class="card--title card--destination">Hawaii</h3>
+                <img class="card--image card--image" src="" alt="">
               </div>
               <div class="card--body">
-                <h5 class="card--header">Details</h5>
-                <p class="card--text" id="card--date">Start Date: Jan 10, 2010</p>
-                <p class="card--text" id="card--duration">Duration: 7 Days</p>
-                <p class="card--text" id="card--travelers">Travelers: 3 Adults</p>
-                <h5 class="card--header">Cost Per Person</h5>
-                <p class="card--text" id="card--lodging">Lodging Cost Per Day: $80</p>
-                <p class="card--text" id="card--flight">Flight Cost: $600</p>
+                <h4 class="card--header">Details</h4>
+                <p class="card--text card--date">Start Date: Jan 10, 2010</p>
+                <p class="card--text card--duration">Duration: 7 Days</p>
+                <p class="card--text card--travelers">Travelers: 3 Adults</p>
+                <h4 class="card--header">Cost Per Person</h4>
+                <p class="card--text card--lodging">Lodging Cost Per Day: $80</p>
+                <p class="card--text card--flight">Flight Cost: $600</p>
               </div>
             </article>
           </template>
           <article id="trip--previous" class="trip--article">
-            <h3>Previous</h3>
+            <h2>Previous</h2>
           </article>
           <article id="trip--present" class="trip--article">
-            <h3>Present</h3>
+            <h2>Present</h2>
           </article>
           <article id="trip--upcoming" class="trip--article">
-            <h3>Upcoming</h3>
+            <h2>Upcoming</h2>
           </article>
           <article id="trip--pending" class="trip--article">
-            <h3>Pending</h3>
+            <h2>Pending</h2>
           </article>
         </section>
+      </section>
+      <section class="dashboard-agent hidden">
+        <article class="welcome" id="welcome-agent">
+          <h2>Welcome Agent!</h2>
+          <h3>Total Income Year:</h3>
+          <p >$400.55</p>
+          <h3>Today's Trips</h3>
+          <p>User Name</p>
+        </article>
+        <article class="pending--article" id="pending--article">
+          <h2>Pending Trips</h2>
+          <div class="pending--cards" id="pending--cards">
+            <template id="pending--template">
+              <article class="user--card">
+                <h3 class="pending--name">User Name</h3>
+                <p class="pending--location">Location</p>
+                <p class="pending--date">Start Date</p>
+                <button class="button-secondary button-approve" type="button" name="button">Approve</button>
+                <button class="button-secondary button-delete" type="button" name="button">Delete</button>
+              </article>
+            </template>
+          </div>
+        </article>
+        <article class="planning-agent" id="planning-agent">
+          <div class="traveler--header">
+            <h2>All Travelers</h2>
+            <input type="text" name="" value="" placeholder="traveler name">
+          </div>
+          <div class="traveler--cards" id="traveler--cards">
+            <template id="traveler--template">
+              <article class="trip--card">
+                <h3 class="card--title" id="traveler--name">User Name</h3>
+                <h4 class="card--header">All Trips:</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <td>Location</td>
+                      <td>Status</td>
+                    </tr>
+                  </thead>
+                  <tbody id="traveler--locations"></tbody>
+                </table>
+                <h4 class="card--header">Lifetime Spending</h4>
+                <p class="card--text" id="traveler--spent">$8000</p>
+              </article>
+            </template>
+          </div>
+        </article>
       </section>
     </main>
   </body>

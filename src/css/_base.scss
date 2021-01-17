@@ -10,9 +10,17 @@ body, html {
   padding: 0;
 }
 
-h3 {
-  margin: 1rem 0 1rem 0;
+h2, h3 {
+  margin: 0;
   padding: 0;
+}
+
+.button-primary {
+  @include button-primary;
+}
+
+.button-secondary {
+  @include button-secondary;
 }
 
 .hidden {
@@ -38,14 +46,6 @@ h3 {
     justify-content: center;
   }
 
-  button {
-    @include button-primary;
-  }
-
-  h2 {
-    margin: 0;
-  }
-
   img {
     height: 40px;
   }
@@ -53,35 +53,61 @@ h3 {
 
 .welcome {
   background-color: $color-honey;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  // box-shadow: 3px 3px 4px $color-deep-jungle;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  justify-content: space-around;
+  padding: 1.5rem;
 }
 
 .container {
   height: 88%;
 }
 
-.dashboard {
+.dashboard-user {
   display: grid;
   grid-gap: 0.5rem;
   grid-template-areas:
-    "welcome planning planning planning"
-    "trips trips trips trips";
+  "welcomeUser planningUser planningUser planningUser"
+  "tripsUser tripsUser tripsUser tripsUser";
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 2fr;
   height: 100%;
 }
 
-#welcome {
-  grid-area: welcome;
+.dashboard-agent {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-areas:
+    "welcomeAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100%;
 }
 
-#planning {
-  grid-area: planning;
+#welcome-user {
+  grid-area: welcomeUser;
 }
 
-#trips {
-  grid-area: trips;
+#planning-user {
+  grid-area: planningUser;
+}
+
+#trip-user {
+  grid-area: tripsUser;
+}
+
+#welcome-agent {
+  grid-area: welcomeAgent;
+}
+
+#planning-agent {
+  grid-area: planningAgent;
+}
+
+#pending--article {
+  grid-area: tripsAgent;
 }

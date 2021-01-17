@@ -26,4 +26,8 @@ describe('Traveler Class', () => {
     newTraveler.sortTripsByDate()
     expect(newTraveler.trips[0].date).to.equal('2020/10/04')
   })
+
+  it('should calculate the total spending for a given year', () => {
+    
+  })
 })

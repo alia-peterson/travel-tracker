@@ -14,6 +14,12 @@
   }
 }
 
+@mixin button-secondary {
+  @include button-primary
+  background-color: $color-jungle-green;
+  color: $color-maize;
+}
+
 @mixin grid-presets-4x1 {
   display: grid;
   grid-gap: 0.5rem;
@@ -21,6 +27,7 @@
   grid-template-rows: 1fr;
 }
 
+$color-deep-jungle: #00262E; // shadow color
 $color-eagle-green: #003844; // darkest green
 $color-jungle-green: #005256; // mid green
 $color-ming: #3D767B; // light green

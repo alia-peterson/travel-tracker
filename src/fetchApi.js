@@ -28,6 +28,27 @@ const fetchApi = {
 
     return fetch('http://localhost:3001/api/v1/trips', postFormat)
       .then(response => response.json())
+  },
+
+  postModifyTrip(revisedTrip) {
+    const postFormat = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(revisedTrip)
+    }
+
+    return fetch('http://localhost:3001/api/v1/updateTrip', postFormat)
+      .then(response => response.json())
+  },
+
+  deleteTrip(tripID) {
+    const postFormat = {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+    }
+
+    return fetch(`http://localhost:3001/api/v1/trips/${tripID}`, postFormat)
+      .then(response => response.json())
   }
 }
 

@@ -17,7 +17,7 @@ class Trip {
     } else if (Math.abs(daysPassed) <= this.duration) {
       return 'Present'
 
-    } else if (daysPassed > 0 && diffDays <= 30) {
+    } else if (daysPassed > 0 && daysPassed <= 30) {
       return 'Upcoming'
     }
 
@@ -33,7 +33,7 @@ class Trip {
     } else if (this.date.includes('-')) {
       dateParts = this.date.split('-')
     }
-    
+
     const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
     this.date = newDate.toDateString()
   }
