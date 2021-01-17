@@ -14,7 +14,7 @@ const trips = {
 }
 
 const domUpdates = {
-  populateTravelerInformation(currentTraveler) {
+  populateTravelerGreeting(currentTraveler) {
     const travelerNames = currentTraveler.name.split(' ')
     const travelerFirstName = travelerNames[0]
 

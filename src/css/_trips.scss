@@ -3,10 +3,6 @@
   grid-template-areas:
     "previous present upcoming pending";
   overflow: hidden;
-
-  h2 {
-    margin: 0;
-  }
 }
 
 .trip--article,
@@ -30,6 +26,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem;
   text-align: center;
   width: 90%;
 

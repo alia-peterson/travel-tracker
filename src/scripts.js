@@ -46,9 +46,15 @@ dateInput.addEventListener('change', validateForm)
 
 
 // FETCH SERVER DATA
-const travelersResponse = fetchApi.getTravelers()
-const tripsResponse = fetchApi.getAllTrips()
-const destinationsResponse = fetchApi.getAllDestinations()
+let travelersResponse = fetchApi.getTravelers()
+let tripsResponse = fetchApi.getAllTrips()
+let destinationsResponse = fetchApi.getAllDestinations()
+
+function reloadServerInformation() {
+  travelersResponse = fetchApi.getTravelers()
+  tripsResponse = fetchApi.getAllTrips()
+  destinationsResponse = fetchApi.getAllDestinations()
+}
 
 Promise.all([destinationsResponse])
   .then(responses => {
@@ -104,13 +110,14 @@ function loadAgentDashboard() {
 
         domUpdates.displayTravelerInformation(newTraveler, allLocations)
         domUpdates.displayPendingTrips(newTraveler, allLocations)
+        addPendingButtonEventListeners()
       })
     })
 }
 
 function createTravelerProfile(traveler) {
   currentTraveler = new Traveler(traveler)
-  domUpdates.populateTravelerInformation(currentTraveler)
+  domUpdates.populateTravelerGreeting(currentTraveler)
 
   Promise.all([tripsResponse, destinationsResponse])
     .then(responses => {
@@ -170,14 +177,17 @@ function createNewTrip() {
 
   Promise.all([tripsResponse, destinationsResponse])
     .then(responses => {
-      tripInformation.id = responses[0].trips.length + 1
+      const totalTrips = responses[0].trips.length - 1
+      tripInformation.id = responses[0].trips[totalTrips].id + 1
+      
       const newTrip = new Trip(tripInformation)
       newTrip.formatDate()
       currentTraveler.trips.push(newTrip)
 
       findDestinationInformation(responses[1].destinations)
       fetchApi.postNewTrip(tripInformation)
-    })
+      reloadServerInformation()
+    }).catch(error => console.log('post response error', error))
 }
 
 
@@ -247,12 +257,23 @@ function searchForUser() {
 
 }
 
-function approvePendingTrip() {
+function approvePendingTrip(event) {
+  const tripID = event.target.getAttribute('tripID')
+  const revisedTrip = {
+    id: Number(tripID),
+    status: 'approved'
+  }
 
+  fetchApi.postModifyTrip(revisedTrip)
+  hideTripCard(event)
+  reloadServerInformation()
 }
 
 function deletePendingTrip() {
-  
+  const tripID = event.target.getAttribute('tripID')
+  fetchApi.deleteTrip(Number(tripID))
+  hideTripCard(event)
+  reloadServerInformation()
 }
 
 
@@ -281,12 +302,22 @@ function formatDateForPost(dateInput) {
   return dateParts.join('/')
 }
 
-function addPendingButtonEventListeners(type) {
-  const buttons = document.querySelectorAll(`.button-${type}`)
+function addPendingButtonEventListeners() {
+  const approveButtons = document.querySelectorAll('.button-approve')
+  const deleteButtons = document.querySelectorAll('.button-delete')
 
-  buttons.forEach(button => {
-    button.addEventListener('click')
+  approveButtons.forEach(button => {
+    button.addEventListener('click', approvePendingTrip)
   })
+
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', deletePendingTrip)
+  })
+}
+
+function hideTripCard(event) {
+  const thisCard = event.target.closest('.user--card')
+  thisCard.classList.add('hidden')
 }
 
 
