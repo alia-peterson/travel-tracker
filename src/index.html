@@ -21,7 +21,7 @@
       </div>
     </header>
     <main class="container">
-      <section class="login">
+      <section class="login hidden">
         <section class="login--main">
           <h2>User Login</h2>
           <div class="login--body">
@@ -45,7 +45,7 @@
           </div>
         </section>
       </section>
-      <section class="dashboard-user hidden">
+      <section class="dashboard-user">
         <article class="welcome" id="welcome-user">
           <h2 id="welcome--message">Welcome User!</h2>
           <h3>Total Spent Last Year:</h3>
@@ -85,6 +85,9 @@
         </article>
         <section class="trip-user" id="trip-user">
           <template id="trip--template">
+          </template>
+          <article id="trip--previous" class="trip--article">
+            <h2>Previous</h2>
             <article class="trip--card">
               <div class="card--header">
                 <h3 class="card--title card--destination">Hawaii</h3>
@@ -100,9 +103,6 @@
                 <p class="card--text card--flight">Flight Cost: $600</p>
               </div>
             </article>
-          </template>
-          <article id="trip--previous" class="trip--article">
-            <h2>Previous</h2>
           </article>
           <article id="trip--present" class="trip--article">
             <h2>Present</h2>
