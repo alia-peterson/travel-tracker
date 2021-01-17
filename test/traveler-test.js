@@ -39,4 +39,10 @@ describe('Traveler Class', () => {
     expect(lastYearSpending).to.equal('6,567.00')
     expect(thisYearSpending).to.equal('2,398.00')
   })
+
+  it('should calculate the cost for a single trip', () => {
+    const thisTrip = newTraveler.trips[0]
+    const tripCost = newTraveler.calculateCostPerTrip(thisTrip, destinationData)
+    expect(tripCost).to.equal(5290)
+  })
 })
