@@ -1,12 +1,12 @@
 .planning-user,
 .planning-agent {
   background-color: $color-jungle-green;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  // box-shadow: 3px 3px 4px $color-deep-jungle;
   color: $color-almond;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  // max-height: 30vh;
   padding: 1rem;
 
   .button {

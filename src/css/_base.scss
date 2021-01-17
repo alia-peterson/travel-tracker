@@ -53,11 +53,11 @@ h2, h3 {
 
 .welcome {
   background-color: $color-honey;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  // box-shadow: 3px 3px 4px $color-deep-jungle;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  // max-height: 30vh;
   padding: 1.5rem;
 }
 
