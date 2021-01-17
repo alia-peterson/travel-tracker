@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  max-height: 30vh;
+  // max-height: 30vh;
   padding: 1rem;
 
   .button {
@@ -60,22 +60,15 @@
     margin: 1rem;
     width: 300px;
 
+    table {
+      border-spacing: 0.5rem 0;
+      text-align: left;
+    }
+
     h3 {
-      margin: 1rem 0 1rem 0;
+      margin: 1rem 0 0 0;
     }
   }
-}
-
-.traveler--header {
-  text-align: center;
-  padding-bottom: 1rem;
-}
-
-.traveler--cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow: scroll;
 }
 
 #planning--warning {

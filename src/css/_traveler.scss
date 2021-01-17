@@ -1,0 +1,12 @@
+.traveler--header {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.traveler--cards,
+.pending--cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: scroll;
+}

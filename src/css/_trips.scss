@@ -10,7 +10,7 @@
 }
 
 .trip--article,
-.trip-agent {
+.pending--article {
   align-items: center;
   background-color: $color-eagle-green;
   border-radius: 1rem;
@@ -57,6 +57,16 @@
   p {
     font-size: 14px;
     margin: 0.5rem 0 0.5rem 0;
+  }
+}
+
+.user--card {
+  h3 {
+    margin: 1rem 0 0 0;
+  }
+
+  .button-secondary {
+
   }
 }
 

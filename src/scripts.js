@@ -95,12 +95,16 @@ function loadAgentDashboard() {
       const allTrips = responses[1].trips
       const allLocations = responses[2].destinations
 
+      alphabetizeDataset(allTravelers, 'name')
+
       allTravelers.forEach(traveler => {
         const newTraveler = new Traveler(traveler)
         findTravelerTrips(allTrips, newTraveler)
-        domUpdates.displayTravelerInformation(newTraveler, allLocations)
-      })
+        newTraveler.sortTripsByDate()
 
+        domUpdates.displayTravelerInformation(newTraveler, allLocations)
+        domUpdates.displayPendingTrips(newTraveler, allLocations)
+      })
     })
 }
 
@@ -186,19 +190,19 @@ function resetPlanningForm() {
   estimatedCostOfTrip.innerText = `Estimated Cost: $0.00`
 }
 
-function alphabetizeDestinations(destinations) {
-  destinations.sort((a, b) => {
-    if (a.destination > b.destination) {
+function alphabetizeDataset(dataType, property) {
+  dataType.sort((a, b) => {
+    if (a[property] > b[property]) {
       return 1
 
-    } else if (a.destination < b.destination) {
+    } else if (a[property] < b[property]) {
       return -1
     }
   })
 }
 
 function populateDropdowns() {
-  alphabetizeDestinations(allDestinations)
+  alphabetizeDataset(allDestinations, 'destination')
 
   domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
   domUpdates.addNumbersToDropdowns(durationDropdown)
@@ -238,6 +242,20 @@ function validateForm() {
 }
 
 
+// AGENT FUNCTIONS
+function searchForUser() {
+
+}
+
+function approvePendingTrip() {
+
+}
+
+function deletePendingTrip() {
+  
+}
+
+
 // GENERAL FUNCTIONALITY
 function findDestinationInformation(destinations) {
   currentTraveler.trips.forEach(trip => {
@@ -261,6 +279,14 @@ function determineDateDifference(dateInput) {
 function formatDateForPost(dateInput) {
   const dateParts = dateInput.split('-')
   return dateParts.join('/')
+}
+
+function addPendingButtonEventListeners(type) {
+  const buttons = document.querySelectorAll(`.button-${type}`)
+
+  buttons.forEach(button => {
+    button.addEventListener('click')
+  })
 }
 
 

@@ -15,6 +15,14 @@ h3 {
   padding: 0;
 }
 
+.button-primary {
+  @include button-primary;
+}
+
+.button-secondary {
+  @include button-secondary;
+}
+
 .hidden {
   display: none !important;
 }
@@ -38,10 +46,6 @@ h3 {
     justify-content: center;
   }
 
-  button {
-    @include button-primary;
-  }
-
   h2 {
     margin: 0;
   }
@@ -57,7 +61,7 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-height: 30vh;
+  // max-height: 30vh;
   padding: 1.5rem;
 }
 
@@ -108,6 +112,6 @@ h3 {
   grid-area: planningAgent;
 }
 
-#trip-agent {
+#pending--article {
   grid-area: tripsAgent;
 }

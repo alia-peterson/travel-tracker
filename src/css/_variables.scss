@@ -14,6 +14,12 @@
   }
 }
 
+@mixin button-secondary {
+  @include button-primary
+  background-color: $color-jungle-green;
+  color: $color-maize;
+}
+
 @mixin grid-presets-4x1 {
   display: grid;
   grid-gap: 0.5rem;

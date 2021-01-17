@@ -23,9 +23,7 @@
   width: 100%;
 
   button {
-    @include button-primary;
-    background-color: $color-jungle-green;
-    color: $color-maize;
+    @include button-secondary;
 
     &:disabled {
       background-color: $color-ming;
