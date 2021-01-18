@@ -53,30 +53,48 @@ let destinationsResponse = fetchApi.getAllDestinations()
 function reloadServerInformation() {
   travelersResponse = fetchApi.getTravelers()
   tripsResponse = fetchApi.getAllTrips()
+
+  Promise.all([travelersResponse, tripsResponse])
+    .then(responses => {
+
+    })
 }
 
 Promise.all([travelersResponse, tripsResponse, destinationsResponse])
   .then(responses => {
+    const allTravelers = responses[0].travelers
     const allTrips = responses[1].trips
+    const allDestinations= responses[2].destinations
 
-    responses[0].travelers.forEach(traveler => {
-      const newTraveler = new Traveler(traveler)
-      findTravelerTrips(allTrips, newTraveler)
-      currentAgent.travelers.push(newTraveler)
-    })
-
-    allTrips.forEach(trip => {
-      const newTrip = new Trip(trip)
-      newTrip.formatDate()
-      currentAgent.trips.push(newTrip)
-    })
-
-    responses[2].destinations.forEach(place => {
-      const newDestination = new Destination(place)
-      currentAgent.destinations.push(newDestination)
-    })
+    populateAgentTravelers(allTravelers, allTrips)
+    populateAgentTrips(allTrips)
+    populateAgentDestinations(allDestinations)
   })
   .then(populateDropdowns)
+
+
+function populateAgentTravelers(allTravelers, allTrips) {
+  allTravelers.forEach(traveler => {
+    const newTraveler = new Traveler(traveler)
+    findTravelerTrips(allTrips, newTraveler)
+    currentAgent.travelers.push(newTraveler)
+  })
+}
+
+function populateAgentTrips(allTrips) {
+  allTrips.forEach(trip => {
+    const newTrip = new Trip(trip)
+    newTrip.formatDate()
+    currentAgent.trips.push(newTrip)
+  })
+}
+
+function populateAgentDestinations(allDestinations) {
+  allDestinations.forEach(place => {
+    const newDestination = new Destination(place)
+    currentAgent.destinations.push(newDestination)
+  })
+}
 
 
 // USER INFORMATION POPULATION
@@ -283,7 +301,9 @@ function approvePendingTrip(event) {
   reloadServerInformation()
     .then(() => {
       domUpdates.clearTravelerCardDisplays()
-      domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
+      currentAgent.travelers.forEach(traveler => {
+        domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
+      })
     })
 
 }
