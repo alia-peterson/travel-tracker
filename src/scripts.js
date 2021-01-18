@@ -30,7 +30,7 @@ const durationDropdown = document.querySelector('#planning--duration')
 const travelersDropdown = document.querySelector('#planning--travelers')
 const estimatedCostOfTrip = document.querySelector('#planning--cost')
 
-const allDestinations = []
+const currentAgent = new Agent()
 let currentTraveler
 
 
@@ -60,7 +60,7 @@ Promise.all([destinationsResponse])
   .then(responses => {
     responses[0].destinations.forEach(place => {
       const newDestination = new Destination(place)
-      allDestinations.push(newDestination)
+      currentAgent.destinations.push(newDestination)
     })
   })
   .then(populateDropdowns)
@@ -90,29 +90,6 @@ function loadTravelerDashboard() {
 
   fetchApi.getSpecificTraveler(travelerID)
     .then(traveler => createTravelerProfile(traveler))
-}
-
-function loadAgentDashboard() {
-  logOnWebsite(agentDashboard)
-
-  Promise.all([travelersResponse, tripsResponse, destinationsResponse])
-    .then(responses => {
-      const allTravelers = responses[0].travelers
-      const allTrips = responses[1].trips
-      const allLocations = responses[2].destinations
-
-      alphabetizeDataset(allTravelers, 'name')
-
-      allTravelers.forEach(traveler => {
-        const newTraveler = new Traveler(traveler)
-        findTravelerTrips(allTrips, newTraveler)
-        newTraveler.sortTripsByDate()
-
-        domUpdates.displayTravelerInformation(newTraveler, allLocations)
-        domUpdates.displayPendingTrips(newTraveler, allLocations)
-        addPendingButtonEventListeners()
-      })
-    })
 }
 
 function createTravelerProfile(traveler) {
@@ -212,9 +189,9 @@ function alphabetizeDataset(dataType, property) {
 }
 
 function populateDropdowns() {
-  alphabetizeDataset(allDestinations, 'destination')
+  alphabetizeDataset(currentAgent.destinations, 'destination')
 
-  domUpdates.addDestinationsToDropdown(allDestinations, destinationDropdown)
+  domUpdates.addDestinationsToDropdown(currentAgent.destinations, destinationDropdown)
   domUpdates.addNumbersToDropdowns(durationDropdown)
   domUpdates.addNumbersToDropdowns(travelersDropdown)
 }
@@ -253,8 +230,49 @@ function validateForm() {
 
 
 // AGENT FUNCTIONS
+function loadAgentDashboard() {
+  logOnWebsite(agentDashboard)
+
+  Promise.all([travelersResponse, tripsResponse])
+    .then(responses => {
+      const allTravelers = responses[0].travelers
+      const allTrips = responses[1].trips
+
+      alphabetizeDataset(allTravelers, 'name')
+
+      allTravelers.forEach(traveler => {
+        const newTraveler = new Traveler(traveler)
+        findTravelerTrips(allTrips, newTraveler)
+        currentAgent.travelers.push(newTraveler)
+
+        domUpdates.displayTravelerInformation(newTraveler, currentAgent.destinations)
+        domUpdates.displayPendingTrips(newTraveler, currentAgent.destinations)
+        addPendingButtonEventListeners()
+      })
+
+      populateAgentWelcome(allTravelers, allTrips, currentAgent.destinations)
+    })
+}
+
 function searchForUser() {
 
+}
+
+function populateAgentWelcome(allTravelers, allTrips, allLocations) {
+  // let previousIncome = 0
+  let presentIncome = 0
+
+  allTravelers.forEach(traveler => {
+    const newTraveler = new Traveler(traveler)
+    findTravelerTrips(allTrips, newTraveler)
+
+    // const previousSpent = newTraveler.calculateSpending(allLocations, 2021)
+    const presentSpent = newTraveler.calculateSpending(allLocations, 2021)
+    // previousIncome += Number.parseInt(previousSpent)
+    presentIncome += Number.parseInt(presentSpent)
+  })
+
+  domUpdates.displayAgentAnnualIncome(presentIncome)
 }
 
 function approvePendingTrip(event) {
@@ -288,7 +306,7 @@ function findDestinationInformation(destinations) {
 }
 
 function findDestination(destinationID) {
-  return allDestinations.find(dest => dest.id === destinationID)
+  return currentAgent.destinations.find(dest => dest.id === destinationID)
 }
 
 function determineDateDifference(dateInput) {

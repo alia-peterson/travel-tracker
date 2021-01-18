@@ -41,7 +41,7 @@ const domUpdates = {
   },
 
   addCostToProfile(yearSpent, totalCost) {
-    yearSpent.innerText = `${totalCost}`
+    yearSpent.innerText = `$${totalCost}`
   },
 
   addDestinationsToDropdown(destinations, dropdown) {
@@ -62,6 +62,11 @@ const domUpdates = {
       newOption.innerText = number
       dropdown.appendChild(newOption)
     })
+  },
+
+  displayAgentAnnualIncome(presentSpent) {
+    const presentIncome = document.querySelector('#welcome--income')
+    presentIncome.innerText = `$${presentSpent}`
   },
 
   displayTravelerInformation(traveler, destinations) {

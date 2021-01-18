@@ -34,8 +34,8 @@ class Traveler {
     })
 
     return (totalCost * 1.1).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD'
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     })
   }
 
