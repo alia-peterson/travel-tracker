@@ -10,7 +10,7 @@ body, html {
   padding: 0;
 }
 
-h2, h3 {
+h2, h3, p {
   margin: 0;
   padding: 0;
 }
@@ -80,10 +80,10 @@ h2, h3 {
   display: grid;
   grid-gap: 0.5rem;
   grid-template-areas:
-    "welcomeAgent planningAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent planningAgent";
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+    "welcomeAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent";
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100%;
 }
@@ -110,4 +110,23 @@ h2, h3 {
 
 #pending--article {
   grid-area: tripsAgent;
+}
+
+
+// MEDIA SCREENS
+@media screen and (max-width: 900px) {
+  .dashboard-user {
+    grid-template-areas:
+      "welcomeUser"
+      "planningUser"
+      "tripsUser";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.6fr 2fr 3fr;
+  }
+
+  .welcome {
+    align-items: center;
+    flex-direction: row;
+  }
+
 }
