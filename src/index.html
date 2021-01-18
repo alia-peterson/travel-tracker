@@ -82,7 +82,16 @@
             </div>
           </form>
         </article>
-        <section class="trip-user" id="trip-user">
+        <section class="trip-user display-previous" id="trip-user">
+          <div class="trip--form">
+            <label for="trip--dropdown">Select Trips to View</label>
+            <select class="trip--dropdown" id="trip--dropdown" name="">
+              <option value="Previous">Previous</option>
+              <option value="Present">Present</option>
+              <option value="Upcoming">Upcoming</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
           <template id="trip--template">
             <article class="trip--card">
               <div class="card--header">
@@ -100,16 +109,16 @@
               </div>
             </article>
           </template>
-          <article id="trip--previous" class="trip--article">
+          <article id="trip--previous" class="trip--article previous">
             <h2>Previous</h2>
           </article>
-          <article id="trip--present" class="trip--article">
+          <article id="trip--present" class="trip--article present">
             <h2>Present</h2>
           </article>
-          <article id="trip--upcoming" class="trip--article">
+          <article id="trip--upcoming" class="trip--article upcoming">
             <h2>Upcoming</h2>
           </article>
-          <article id="trip--pending" class="trip--article">
+          <article id="trip--pending" class="trip--article pending">
             <h2>Pending</h2>
           </article>
         </section>

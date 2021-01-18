@@ -116,16 +116,11 @@ h2, h3, p {
 // MEDIA SCREENS
 @media screen and (max-width: 900px) {
   .dashboard-user {
-    grid-template-areas:
-      "welcomeUser"
-      "planningUser"
-      "tripsUser";
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.6fr 2fr 3fr;
+    display: block;
   }
 
   .welcome {
-    align-items: center;
+    align-items: flex-end;
     flex-direction: row;
   }
 
