@@ -52,7 +52,6 @@
   input {
     font-size: 18px;
     height: 25px;
-    // width: 180px;
   }
 }
 
@@ -61,3 +60,40 @@
   height: 90%;
   width: 1px;
 }
+
+@media screen and (max-width: 768px) {
+  .login--main {
+    margin-top: 1rem;
+    height: auto;
+    width: auto;
+  }
+
+  .line {
+    height: 1px;
+    width: 90%;
+  }
+
+  .login--body {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .login--form {
+    height: 12rem;
+    width: 20rem;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .login--form {
+    height: 13rem;
+    width: 15rem;
+  }
+}
+
+@media screen and (max-width: 375px) {
+
+    input {
+      max-width: 10rem;
+    }
+  }

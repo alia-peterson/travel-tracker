@@ -14,3 +14,38 @@
 .button-delete {
   margin: 0.2rem 0 0.2rem 0;
 }
+
+.dashboard-agent {
+  @include grid-presets-4x1
+  grid-template-areas:
+    "welcomeAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent";
+  height: 100%;
+}
+
+#welcome-agent {
+  grid-area: welcomeAgent;
+}
+
+#planning-agent {
+  grid-area: planningAgent;
+}
+
+#pending--article {
+  grid-area: tripsAgent;
+}
+
+
+// MEDIA SCREENS
+@media screen and (max-width: 768px) {
+  .dashboard-agent {
+    grid-template-areas:
+    "welcomeAgent welcomeAgent welcomeAgent"
+    "tripsAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.6fr 1fr 1fr;
+  }
+
+}

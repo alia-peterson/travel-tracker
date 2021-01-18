@@ -76,18 +76,6 @@ h2, h3, p {
   height: 100%;
 }
 
-.dashboard-agent {
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-areas:
-    "welcomeAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent";
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  height: 100%;
-}
-
 #welcome-user {
   grid-area: welcomeUser;
 }
@@ -100,18 +88,6 @@ h2, h3, p {
   grid-area: tripsUser;
 }
 
-#welcome-agent {
-  grid-area: welcomeAgent;
-}
-
-#planning-agent {
-  grid-area: planningAgent;
-}
-
-#pending--article {
-  grid-area: tripsAgent;
-}
-
 
 // MEDIA SCREENS
 @media screen and (max-width: 900px) {
@@ -119,9 +95,55 @@ h2, h3, p {
     display: block;
   }
 
-  .welcome {
-    align-items: flex-end;
-    flex-direction: row;
+  .header {
+    height: auto;
+    margin-bottom: 1rem;
   }
 
+  .welcome--spending {
+    align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    div {
+      align-items: flex-end;
+      display: flex;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .slogan {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .welcome {
+    align-items: center;
+    text-align: center;
+
+    &--spending {
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  .welcome--spending div {
+    align-items: center;
+    flex-direction: column;
+  }
 }

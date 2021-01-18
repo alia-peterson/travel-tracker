@@ -121,5 +121,22 @@
   .planning-user {
     margin: 0.5rem 0 0.5rem 0;
   }
+}
 
+@media screen and (max-width: 550px) {
+  .planning {
+    &--inputs {
+      display: block;
+    }
+
+    &--dropdown {
+      max-width: 14rem;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .planning--dropdown {
+    max-width: 12rem;
+  }
 }
