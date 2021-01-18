@@ -5,7 +5,6 @@
     <title>Travel Tracker</title>
     <meta name="description" content="DESCRIPTION">
     <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
@@ -30,7 +29,7 @@
               <label for="name-traveler">Username</label>
               <input id="name-traveler" type="text" name="" value="traveler2">
               <label for="pass-traveler">Password</label>
-              <input id="pass-traveler" type="text" name="" value="travel2020">
+              <input id="pass-traveler" type="password" name="" value="travel2020">
               <button id="button-traveler" class="button-secondary" type="button" name="button">Login</button>
             </article>
             <div class="line"></div>
@@ -39,7 +38,7 @@
               <label for="name-agent">Username</label>
               <input id="name-agent" type="text" name="" value="agency">
               <label for="pass-agent">Password</label>
-              <input id="pass-agent" type="text" name="" value="travel2020">
+              <input id="pass-agent" type="password" name="" value="travel2020">
               <button id="button-agent" class="button-secondary" type="button" name="button">Login</button>
             </article>
           </div>
@@ -48,14 +47,21 @@
       <section class="dashboard-user hidden">
         <article class="welcome" id="welcome-user">
           <h2 id="welcome--message">Welcome User!</h2>
-          <h3>Total Spent Last Year:</h3>
-          <p id="welcome--cost-previous">$400.55</p>
-          <h3>Total Spent This Year:</h3>
-          <p id="welcome--cost-present">$400.55</p>
+          <div class="welcome--spending">
+            <div>
+              <h3>Total Spent Last Year:</h3>
+              <p id="spending--previous-amount">$400.55</p>
+            </div>
+            <div>
+              <h3>Total Spent This Year:</h3>
+              <p id="spending--present-amount">$400.55</p>
+            </div>
+          </div>
         </article>
         <article class="planning-user" id="planning-user">
           <h2 class="planning--title">Plan a Trip</h2>
           <form class="planning--form" id="planning--form" action="index.html" method="post">
+            <p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p>
             <div class="planning--inputs">
               <div id="input-date" class="form--section">
                 <label for="planning--date">Start Date</label>
@@ -76,14 +82,22 @@
                 <select id="planning--travelers" class="planning--dropdown" name="Travelers"></select>
               </div>
             </div>
-            <p id="planning--warning" class="planning--text">Please select a future date and a destination to submit a new trip</p>
-            <p id="planning--cost" class="planning--text">Estimated Cost: $0.00</p>
+            <h3 id="planning--cost" class="planning--cost">Estimated Cost: $0.00</h3>
             <div class="planning--bottom">
               <button id="button-add-trip" class="button-primary" form="planning--form" type="button" name="button" disabled>Add to Trips</button>
             </div>
           </form>
         </article>
-        <section class="trip-user" id="trip-user">
+        <section class="trip-user display-previous" id="trip-user">
+          <div class="trip--form">
+            <label for="trip--dropdown">Select Trips to View</label>
+            <select class="trip--dropdown" id="trip--dropdown" name="">
+              <option value="Previous">Previous</option>
+              <option value="Present">Present</option>
+              <option value="Upcoming">Upcoming</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
           <template id="trip--template">
             <article class="trip--card">
               <div class="card--header">
@@ -101,29 +115,38 @@
               </div>
             </article>
           </template>
-          <article id="trip--previous" class="trip--article">
+          <article id="trip--previous" class="trip--article previous">
             <h2>Previous</h2>
           </article>
-          <article id="trip--present" class="trip--article">
+          <article id="trip--present" class="trip--article present">
             <h2>Present</h2>
           </article>
-          <article id="trip--upcoming" class="trip--article">
+          <article id="trip--upcoming" class="trip--article upcoming">
             <h2>Upcoming</h2>
           </article>
-          <article id="trip--pending" class="trip--article">
+          <article id="trip--pending" class="trip--article pending">
             <h2>Pending</h2>
           </article>
         </section>
       </section>
-      <section class="dashboard-agent hidden">
+      <section class="dashboard-agent hidden display-trips">
         <article class="welcome" id="welcome-agent">
           <h2>Welcome Agent!</h2>
-          <h3>Total Income Year:</h3>
-          <p >$400.55</p>
-          <h3>Today's Trips</h3>
-          <p>User Name</p>
+          <h3>Total Income This Year:</h3>
+          <p id="welcome--income">$400.55</p>
+          <h3>Today's Trips:</h3>
+          <p id="welcome--trips">User Name</p>
         </article>
-        <article class="pending--article" id="pending--article">
+        <div class="traveler--form-container">
+          <div class="traveler--form">
+            <label for="traveler--dropdown">Select View</label>
+            <select class="traveler--dropdown" id="traveler--dropdown" name="">
+              <option value="Pending Trips">Pending Trips</option>
+              <option value="All Travelers">All Travelers</option>
+            </select>
+          </div>
+        </div>
+        <article class="pending--article agent--body trips" id="pending--article">
           <h2>Pending Trips</h2>
           <div class="pending--cards" id="pending--cards">
             <template id="pending--template">
@@ -137,7 +160,7 @@
             </template>
           </div>
         </article>
-        <article class="planning-agent" id="planning-agent">
+        <article class="planning-agent agent--body travelers" id="planning-agent">
           <div class="traveler--header">
             <h2>All Travelers</h2>
             <input type="text" name="" value="" placeholder="traveler name">
@@ -156,7 +179,7 @@
                   </thead>
                   <tbody id="traveler--locations"></tbody>
                 </table>
-                <h4 class="card--header">Lifetime Spending</h4>
+                <h4 class="card--header">Lifetime Spending:</h4>
                 <p class="card--text" id="traveler--spent">$8000</p>
               </article>
             </template>

@@ -10,7 +10,7 @@ body, html {
   padding: 0;
 }
 
-h2, h3 {
+h2, h3, p {
   margin: 0;
   padding: 0;
 }
@@ -76,18 +76,6 @@ h2, h3 {
   height: 100%;
 }
 
-.dashboard-agent {
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-areas:
-    "welcomeAgent planningAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent planningAgent"
-    "tripsAgent planningAgent planningAgent planningAgent";
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  height: 100%;
-}
-
 #welcome-user {
   grid-area: welcomeUser;
 }
@@ -100,14 +88,70 @@ h2, h3 {
   grid-area: tripsUser;
 }
 
-#welcome-agent {
-  grid-area: welcomeAgent;
+
+// MEDIA SCREENS
+@media screen and (max-width: 900px) {
+  .dashboard-user {
+    display: block;
+  }
+
+  .header {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .welcome--spending {
+    align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    div {
+      align-items: flex-end;
+      display: flex;
+    }
+  }
 }
 
-#planning-agent {
-  grid-area: planningAgent;
+@media screen and (max-width: 650px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    .slogan {
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
-#pending--article {
-  grid-area: tripsAgent;
+@media screen and (max-width: 550px) {
+  .container {
+    height: 80%;
+  }
+
+  .welcome {
+    align-items: center;
+    text-align: center;
+
+    &--spending {
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .container {
+    height: 75%;
+  }
+
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  .welcome--spending div {
+    align-items: center;
+    flex-direction: column;
+  }
 }

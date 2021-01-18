@@ -27,6 +27,25 @@
   grid-template-rows: 1fr;
 }
 
+@mixin grid-presets-2x2 {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+@mixin mobile-dropdown {
+  align-items: center;
+  color: $color-maize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  transform: translate(-50%, 0);
+  top: 1%;
+  left: 50%;
+}
+
 $color-deep-jungle: #00262E; // shadow color
 $color-eagle-green: #003844; // darkest green
 $color-jungle-green: #005256; // mid green

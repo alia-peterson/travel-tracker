@@ -22,6 +22,21 @@
     width: 100%;
   }
 
+  &--cost {
+    margin-bottom: 0.4rem;
+  }
+
+  &--date {
+    font-size: 14px;
+    height: 1.7rem;
+  }
+
+  &--dropdown {
+    font-size: 14px;
+    height: 2rem;
+    min-width: 3rem;
+  }
+
   &--inputs {
     @include grid-presets-4x1;
     grid-gap: 1rem;
@@ -31,7 +46,9 @@
   }
 
   &--text {
-    margin: 0.2rem 0 0 0;
+    font-size: 14px;
+    margin: 0.5rem 0 0.5 0;
+    // margin: 0.2rem 0 0 0;
   }
 
   &--title {
@@ -46,34 +63,8 @@
   justify-content: flex-end;
 }
 
-.planning--dropdown {
-  height: 24px;
-  min-width: 48px;
-}
-
-.planning-agent {
-  align-items: center;
-  justify-content: flex-start;
-  max-height: none;
-
-  .trip--card {
-    margin: 1rem;
-    width: 300px;
-
-    table {
-      border-spacing: 0.5rem 0;
-      text-align: left;
-    }
-
-    h3 {
-      margin: 1rem 0 0 0;
-    }
-  }
-}
-
 #planning--warning {
-  font-size: 14px;
-  margin: 0;
+  // margin: 0.5rem 0 0 0;
 }
 
 #input-date {
@@ -90,4 +81,42 @@
 
 #input-travelers {
   grid-area: travelers;
+}
+
+// MEDIA SCREEN SIZES
+@media screen and (max-width: 1000px) {
+  .planning {
+    &--inputs {
+      @include grid-presets-2x2;
+      grid-template-areas:
+        "date destination"
+        "duration travelers";
+    }
+
+    &--text {
+      margin: 0.5rem 0 0.5rem 0;
+    }
+  }
+
+  .planning-user {
+    margin: 0.5rem 0 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .planning {
+    &--inputs {
+      display: block;
+    }
+
+    &--dropdown {
+      max-width: 14rem;
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .planning--dropdown {
+    max-width: 12rem;
+  }
 }

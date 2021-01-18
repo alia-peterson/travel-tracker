@@ -22,8 +22,8 @@ const travelerUsername = document.querySelector('#name-traveler')
 const travelerPassword = document.querySelector('#pass-traveler')
 const agentUsername = document.querySelector('#name-agent')
 const agentPassword = document.querySelector('#pass-agent')
-const totalSpentPrevious = document.querySelector('#welcome--cost-previous')
-const totalSpentPresent = document.querySelector('#welcome--cost-present')
+const totalSpentPrevious = document.querySelector('#spending--previous-amount')
+const totalSpentPresent = document.querySelector('#spending--present-amount')
 const destinationDropdown = document.querySelector('#planning--destination')
 const dateInput = document.querySelector('#planning--date')
 const durationDropdown = document.querySelector('#planning--duration')
@@ -179,7 +179,7 @@ function createNewTrip() {
     .then(responses => {
       const totalTrips = responses[0].trips.length - 1
       tripInformation.id = responses[0].trips[totalTrips].id + 1
-      
+
       const newTrip = new Trip(tripInformation)
       newTrip.formatDate()
       currentTraveler.trips.push(newTrip)

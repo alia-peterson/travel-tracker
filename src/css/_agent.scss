@@ -1,0 +1,127 @@
+.traveler--header {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.traveler--cards,
+.pending--cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: scroll;
+}
+
+.button-delete {
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.dashboard-agent {
+  @include grid-presets-4x1
+  grid-template-areas:
+    "welcomeAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent"
+    "tripsAgent planningAgent planningAgent planningAgent";
+  height: 100%;
+}
+
+.planning-agent {
+  align-items: center;
+  justify-content: flex-start;
+  max-height: none;
+
+  .trip--card {
+    margin: 1rem;
+    max-width: 300px;
+
+    table {
+      border-spacing: 0.5rem 0;
+      text-align: left;
+    }
+
+    h3 {
+      margin: 1rem 0 0 0;
+    }
+  }
+}
+
+.traveler--form {
+  display: none;
+}
+
+#welcome-agent {
+  grid-area: welcomeAgent;
+}
+
+#planning-agent {
+  grid-area: planningAgent;
+}
+
+#pending--article {
+  grid-area: tripsAgent;
+}
+
+
+// MEDIA SCREENS
+@media screen and (max-width: 910px) {
+  .dashboard-agent {
+    grid-template-areas:
+      "welcomeAgent welcomeAgent welcomeAgent"
+      "tripsAgent planningAgent planningAgent"
+      "tripsAgent planningAgent planningAgent";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.6fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .dashboard-agent {
+    grid-template-areas:
+      "welcomeAgent welcomeAgent"
+      "tripsAgent planningAgent"
+      "tripsAgent planningAgent";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.6fr 1fr;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .agent--body h2 {
+    display: none;
+  }
+
+  .dashboard-agent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .display-trips .agent--body:not(.trips) {
+    display: none !important;
+  }
+
+  .display-travelers .agent--body:not(.travelers) {
+    display: none !important;
+  }
+
+  .pending--article,
+  .planning-agent {
+    padding-top: 5rem;
+    overflow: scroll;
+  }
+
+  .traveler--form-container {
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  .traveler--form {
+    @include mobile-dropdown;
+    top: 1.5rem;
+  }
+
+  .welcome {
+    width: 90%;
+  }
+
+}

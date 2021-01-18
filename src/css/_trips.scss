@@ -27,7 +27,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 0.5rem 0 0.5rem 0;
-  padding: 0.5rem;
+  // padding: 0.5rem;
   text-align: center;
   width: 90%;
 
@@ -42,8 +42,6 @@
 
   h3 {
     font-size: 18px;
-    margin: 2rem 0 2rem 0;
-    z-index: 1;
   }
 
   h4 {
@@ -58,10 +56,16 @@
   }
 }
 
-.user--card {
-  h3 {
-    margin-top: 1rem;
-  }
+.trip--form {
+  display: none;
+}
+
+.trip--card h3 {
+  margin: 2rem 0 2rem 0;
+}
+
+.user--card h3 {
+  margin-top: 1rem;
 }
 
 .card {
@@ -99,4 +103,56 @@
 
 #trip--previous {
   grid-area: previous;
+}
+
+// MEDIA SCREENS
+@media screen and (max-width: 900px) {
+  .display-previous .trip--article:not(.previous) {
+    display: none !important;
+  }
+
+  .display-present .trip--article:not(.present) {
+    display: none !important;
+  }
+
+  .display-upcoming .trip--article:not(.upcoming) {
+    display: none !important;
+  }
+
+  .display-pending .trip--article:not(.pending) {
+    display: none !important;
+  }
+
+  .trip--article {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: auto;
+    padding-top: 4rem;
+
+    h2 {
+      display: none !important;
+    }
+  }
+
+  .trip--card {
+    margin: 1rem;
+    width: auto;
+  }
+
+  .trip--form {
+    @include mobile-dropdown;
+  }
+
+  .trip-user {
+    display: block;
+    overflow: auto;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .trip--card {
+    width: 90%;
+  }
 }
