@@ -41,7 +41,7 @@ const domUpdates = {
   },
 
   addCostToProfile(yearSpent, totalCost) {
-    yearSpent.innerText = `$${totalCost}`
+    yearSpent.innerText = `${totalCost}`
   },
 
   addDestinationsToDropdown(destinations, dropdown) {
@@ -66,8 +66,11 @@ const domUpdates = {
 
   displayTravelerInformation(traveler, destinations) {
     const newTravelerCard = travelerTemplate.content.cloneNode(true)
-    newTravelerCard.querySelector('#traveler--name').innerText = `${traveler.name} (#${traveler.id})`
-    newTravelerCard.querySelector('#traveler--spent').innerText = traveler.calculateSpending(destinations)
+    const travelerName = `${traveler.name} (#${traveler.id})`
+    const travelerSpending = traveler.calculateSpending(destinations)
+
+    newTravelerCard.querySelector('#traveler--name').innerText = travelerName
+    newTravelerCard.querySelector('#traveler--spent').innerText = travelerSpending
 
     traveler.trips.forEach(trip => {
       const location = this.findDestination(destinations, trip)
@@ -81,16 +84,18 @@ const domUpdates = {
     const pendingTrips = traveler.trips.filter(trip => trip.status === 'pending')
 
     pendingTrips.forEach(trip => {
-      const tripLocation = this.findDestination(destinations, trip)
-      const newPendingCard = pendingTemplate.content.cloneNode(true)
+      const location = this.findDestination(destinations, trip)
+      const newCard = pendingTemplate.content.cloneNode(true)
+      const travelerName = `${traveler.name} (#${traveler.id})`
+      const tripInfo = `${trip.date} (${trip.duration} days)`
 
-      newPendingCard.querySelector('.pending--name').innerText = `${traveler.name} (#${traveler.id})`
-      newPendingCard.querySelector('.pending--location').innerText = tripLocation.destination
-      newPendingCard.querySelector('.pending--date').innerText = `${trip.date} (${trip.duration} days)`
-      newPendingCard.querySelector('.button-approve').setAttribute('tripID', trip.id)
-      newPendingCard.querySelector('.button-delete').setAttribute('tripID', trip.id)
+      newCard.querySelector('.pending--name').innerText = travelerName
+      newCard.querySelector('.pending--location').innerText = location.destination
+      newCard.querySelector('.pending--date').innerText = tripInfo
+      newCard.querySelector('.button-approve').setAttribute('tripID', trip.id)
+      newCard.querySelector('.button-delete').setAttribute('tripID', trip.id)
 
-      pendingCards.appendChild(newPendingCard)
+      pendingCards.appendChild(newCard)
     })
   },
 

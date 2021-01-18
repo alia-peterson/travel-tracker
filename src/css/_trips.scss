@@ -141,15 +141,7 @@
   }
 
   .trip--form {
-    align-items: center;
-    color: $color-maize;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    transform: translate(-50%, 0);
-    top: 1%;
-    left: 50%;
+    @include mobile-dropdown;
   }
 
   .trip-user {
