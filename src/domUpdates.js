@@ -40,6 +40,11 @@ const domUpdates = {
     trips[status].querySelectorAll('article').forEach(item => item.remove())
   },
 
+  clearTravelerCardDisplays() {
+    const allTravelerCards = document.querySelector('#traveler--cards')
+    allTravelerCards.querySelectorAll('article').forEach(item => item.remove())
+  },
+
   addCostToProfile(yearSpent, totalCost) {
     yearSpent.innerText = `$${totalCost}`
   },

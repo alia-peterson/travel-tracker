@@ -53,7 +53,6 @@ let destinationsResponse = fetchApi.getAllDestinations()
 function reloadServerInformation() {
   travelersResponse = fetchApi.getTravelers()
   tripsResponse = fetchApi.getAllTrips()
-  destinationsResponse = fetchApi.getAllDestinations()
 }
 
 Promise.all([travelersResponse, tripsResponse, destinationsResponse])
@@ -64,6 +63,12 @@ Promise.all([travelersResponse, tripsResponse, destinationsResponse])
       const newTraveler = new Traveler(traveler)
       findTravelerTrips(allTrips, newTraveler)
       currentAgent.travelers.push(newTraveler)
+    })
+
+    allTrips.forEach(trip => {
+      const newTrip = new Trip(trip)
+      newTrip.formatDate()
+      currentAgent.trips.push(newTrip)
     })
 
     responses[2].destinations.forEach(place => {
@@ -103,7 +108,7 @@ function loadTravelerDashboard() {
 function createTravelerProfile(traveler) {
   currentTraveler = currentAgent.travelers.find(user => user.id === traveler.id)
   domUpdates.populateTravelerGreeting(currentTraveler)
-  
+
   findDestinationInformation(currentAgent.destinations)
   displayAmoutSpent(currentAgent.destinations)
 }
@@ -115,7 +120,6 @@ function findTravelerTrips(allTrips, selectedTraveler = currentTraveler) {
 
   travelerTrips.forEach(trip => {
     const newTrip = new Trip(trip)
-
     newTrip.formatDate()
     selectedTraveler.trips.push(newTrip)
   })
@@ -156,19 +160,30 @@ function createNewTrip() {
     suggestedActivities: []
   }
 
-  Promise.all([tripsResponse, destinationsResponse])
-    .then(responses => {
-      const totalTrips = responses[0].trips.length - 1
-      tripInformation.id = responses[0].trips[totalTrips].id + 1
+  const totalTrips = currentAgent.trips.length - 1
+  tripInformation.id = currentAgent.trips[totalTrips].id + 1
 
-      const newTrip = new Trip(tripInformation)
-      newTrip.formatDate()
-      currentTraveler.trips.push(newTrip)
+  const newTrip = new Trip(tripInformation)
+  newTrip.formatDate()
+  currentTraveler.trips.push(newTrip)
 
-      findDestinationInformation(responses[1].destinations)
-      fetchApi.postNewTrip(tripInformation)
-      reloadServerInformation()
-    }).catch(error => console.log('post response error', error))
+  findDestinationInformation(currentAgent.destinations)
+  fetchApi.postNewTrip(tripInformation)
+  reloadServerInformation()
+
+  // Promise.all([tripsResponse, destinationsResponse])
+  //   .then(responses => {
+  //     const totalTrips = responses[0].trips.length - 1
+  //     tripInformation.id = responses[0].trips[totalTrips].id + 1
+  //
+  //     const newTrip = new Trip(tripInformation)
+  //     newTrip.formatDate()
+  //     currentTraveler.trips.push(newTrip)
+  //
+  //     findDestinationInformation(responses[1].destinations)
+  //     fetchApi.postNewTrip(tripInformation)
+  //     reloadServerInformation()
+  //   }).catch(error => console.log('post response error', error))
 }
 
 
@@ -236,43 +251,23 @@ function validateForm() {
 // AGENT FUNCTIONS
 function loadAgentDashboard() {
   logOnWebsite(agentDashboard)
+  alphabetizeDataset(currentAgent.travelers, 'name')
 
-  Promise.all([travelersResponse, tripsResponse])
-    .then(responses => {
-      const allTravelers = responses[0].travelers
-      const allTrips = responses[1].trips
+  currentAgent.travelers.forEach(traveler => {
+    domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
+    domUpdates.displayPendingTrips(traveler, currentAgent.destinations)
+    addPendingButtonEventListeners()
+  })
 
-      alphabetizeDataset(allTravelers, 'name')
-
-      allTravelers.forEach(traveler => {
-        const newTraveler = new Traveler(traveler)
-        findTravelerTrips(allTrips, newTraveler)
-        currentAgent.travelers.push(newTraveler)
-
-        domUpdates.displayTravelerInformation(newTraveler, currentAgent.destinations)
-        domUpdates.displayPendingTrips(newTraveler, currentAgent.destinations)
-        addPendingButtonEventListeners()
-      })
-
-      populateAgentWelcome(allTravelers, allTrips, currentAgent.destinations)
-    })
+  populateAgentWelcome()
 }
 
 function searchForUser() {
 
 }
 
-function populateAgentWelcome(allTravelers, allTrips, allLocations) {
-  let presentIncome = 0
-
-  allTravelers.forEach(traveler => {
-    const newTraveler = new Traveler(traveler)
-    findTravelerTrips(allTrips, newTraveler)
-
-    const presentSpent = newTraveler.calculateSpending(allLocations, 2021)
-    presentIncome += Number.parseInt(presentSpent)
-  })
-
+function populateAgentWelcome() {
+  const presentIncome = currentAgent.calculateTotalIncome(2021)
   domUpdates.displayAgentAnnualIncome(presentIncome)
 }
 
@@ -286,6 +281,11 @@ function approvePendingTrip(event) {
   fetchApi.postModifyTrip(revisedTrip)
   hideTripCard(event)
   reloadServerInformation()
+    .then(() => {
+      domUpdates.clearTravelerCardDisplays()
+      domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
+    })
+
 }
 
 function deletePendingTrip() {
