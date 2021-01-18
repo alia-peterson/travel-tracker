@@ -56,9 +56,17 @@ function reloadServerInformation() {
   destinationsResponse = fetchApi.getAllDestinations()
 }
 
-Promise.all([destinationsResponse])
+Promise.all([travelersResponse, tripsResponse, destinationsResponse])
   .then(responses => {
-    responses[0].destinations.forEach(place => {
+    const allTrips = responses[1].trips
+
+    responses[0].travelers.forEach(traveler => {
+      const newTraveler = new Traveler(traveler)
+      findTravelerTrips(allTrips, newTraveler)
+      currentAgent.travelers.push(newTraveler)
+    })
+
+    responses[2].destinations.forEach(place => {
       const newDestination = new Destination(place)
       currentAgent.destinations.push(newDestination)
     })
@@ -93,15 +101,11 @@ function loadTravelerDashboard() {
 }
 
 function createTravelerProfile(traveler) {
-  currentTraveler = new Traveler(traveler)
+  currentTraveler = currentAgent.travelers.find(user => user.id === traveler.id)
   domUpdates.populateTravelerGreeting(currentTraveler)
-
-  Promise.all([tripsResponse, destinationsResponse])
-    .then(responses => {
-      findTravelerTrips(responses[0].trips)
-      findDestinationInformation(responses[1].destinations)
-      displayAmoutSpent(responses[1].destinations)
-    })
+  
+  findDestinationInformation(currentAgent.destinations)
+  displayAmoutSpent(currentAgent.destinations)
 }
 
 function findTravelerTrips(allTrips, selectedTraveler = currentTraveler) {
@@ -259,16 +263,13 @@ function searchForUser() {
 }
 
 function populateAgentWelcome(allTravelers, allTrips, allLocations) {
-  // let previousIncome = 0
   let presentIncome = 0
 
   allTravelers.forEach(traveler => {
     const newTraveler = new Traveler(traveler)
     findTravelerTrips(allTrips, newTraveler)
 
-    // const previousSpent = newTraveler.calculateSpending(allLocations, 2021)
     const presentSpent = newTraveler.calculateSpending(allLocations, 2021)
-    // previousIncome += Number.parseInt(previousSpent)
     presentIncome += Number.parseInt(presentSpent)
   })
 
