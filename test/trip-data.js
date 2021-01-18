@@ -14,7 +14,7 @@ const tripData = [
       "userID": 35,
       "destinationID": 25,
       "travelers": 5,
-      "date": "2020/10/04",
+      "date": "2021/10/04",
       "duration": 18,
       "status": "pending",
       "suggestedActivities": []
@@ -24,9 +24,9 @@ const tripData = [
       "userID": 3,
       "destinationID": 22,
       "travelers": 4,
-      "date": "2020/05/22",
+      "date": "2021/05/22",
       "duration": 17,
-      "status": "pending",
+      "status": "approved",
       "suggestedActivities": []
   },
   {
