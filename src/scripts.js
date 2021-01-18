@@ -54,9 +54,17 @@ function reloadServerInformation() {
   travelersResponse = fetchApi.getTravelers()
   tripsResponse = fetchApi.getAllTrips()
 
-  Promise.all([travelersResponse, tripsResponse])
+  return Promise.all([travelersResponse, tripsResponse])
     .then(responses => {
+      const allTravelers = responses[0].travelers
+      const allTrips = responses[1].trips
 
+      currentAgent.travelers = []
+      currentAgent.trips = []
+
+      populateAgentTravelers(allTravelers, allTrips)
+      populateAgentTrips(allTrips)
+      alphabetizeDataset(currentAgent.travelers, 'name')
     })
 }
 
@@ -271,12 +279,7 @@ function loadAgentDashboard() {
   logOnWebsite(agentDashboard)
   alphabetizeDataset(currentAgent.travelers, 'name')
 
-  currentAgent.travelers.forEach(traveler => {
-    domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
-    domUpdates.displayPendingTrips(traveler, currentAgent.destinations)
-    addPendingButtonEventListeners()
-  })
-
+  loadTravelerInformation()
   populateAgentWelcome()
 }
 
@@ -299,13 +302,7 @@ function approvePendingTrip(event) {
   fetchApi.postModifyTrip(revisedTrip)
   hideTripCard(event)
   reloadServerInformation()
-    .then(() => {
-      domUpdates.clearTravelerCardDisplays()
-      currentAgent.travelers.forEach(traveler => {
-        domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
-      })
-    })
-
+    .then(loadTravelerInformation)
 }
 
 function deletePendingTrip() {
@@ -313,6 +310,18 @@ function deletePendingTrip() {
   fetchApi.deleteTrip(Number(tripID))
   hideTripCard(event)
   reloadServerInformation()
+    .then(loadTravelerInformation)
+}
+
+function loadTravelerInformation() {
+  domUpdates.clearTravelerCardDisplays()
+
+  currentAgent.travelers.forEach(traveler => {
+    domUpdates.displayTravelerInformation(traveler, currentAgent.destinations)
+    domUpdates.displayPendingTrips(traveler, currentAgent.destinations)
+  })
+
+  addPendingButtonEventListeners()
 }
 
 

@@ -41,8 +41,8 @@ const domUpdates = {
   },
 
   clearTravelerCardDisplays() {
-    const allTravelerCards = document.querySelector('#traveler--cards')
-    allTravelerCards.querySelectorAll('article').forEach(item => item.remove())
+    travelerCards.querySelectorAll('article').forEach(item => item.remove())
+    pendingCards.querySelectorAll('article').forEach(item => item.remove())
   },
 
   addCostToProfile(yearSpent, totalCost) {
