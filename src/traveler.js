@@ -34,16 +34,16 @@ class Traveler {
     })
 
     return (totalCost * 1.1).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD'
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     })
   }
 
   calculateCostPerTrip(trip, destinations) {
     const place = destinations.find(dest => dest.id === trip.destinationID)
 
-    const totalLodging = place.estimatedLodgingCostPerDay * trip.duration
-    const totalFlight = place.estimatedFlightCostPerPerson
+    const totalLodging = place.lodgingCostPerDay * trip.duration
+    const totalFlight = place.flightCostPerPerson
     return totalLodging + totalFlight
   }
 }
