@@ -267,16 +267,30 @@ function loadAgentDashboard() {
   alphabetizeDataset(currentAgent.travelers, 'name')
 
   loadTravelerInformation()
-  populateAgentWelcome()
+  populateAnnualIncome()
+  populateTodaysTravelers()
 }
 
 function searchForUser() {
 
 }
 
-function populateAgentWelcome() {
+function populateAnnualIncome() {
   const presentIncome = currentAgent.calculateTotalIncome(2021)
   domUpdates.displayAgentAnnualIncome(presentIncome)
+}
+
+function populateTodaysTravelers() {
+  const todaysTrips = currentAgent.trips.filter(trip => {
+    const daysPassed = determineDateDifference(trip.date)
+    if (daysPassed < 0 && Math.abs(daysPassed) < trip.duration &&
+        trip.status === 'approved') {
+      return true
+    }
+    return false
+  })
+  const todaysTravelers = currentAgent.findTodaysTravelers(todaysTrips)
+  domUpdates.displayTodaysTravelers(todaysTravelers)
 }
 
 function approvePendingTrip(event) {

@@ -36,6 +36,19 @@ class Agent {
 
     return yearTrips
   }
+
+  findTodaysTravelers(todaysTrips) {
+    const todaysTravelers = todaysTrips.reduce((acc, curr) => {
+      const currentTraveler = this.travelers.find(traveler => {
+        return traveler.id === curr.userID
+      })
+
+      acc.push( {[currentTraveler.name]: currentTraveler.id} )
+      return acc
+    }, [])
+
+    return todaysTravelers
+  }
 }
 
 module.exports = Agent

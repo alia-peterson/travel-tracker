@@ -5,6 +5,7 @@ const travelerTemplate = document.querySelector('#traveler--template')
 const pendingTemplate = document.querySelector('#pending--template')
 const travelerCards = document.querySelector('#traveler--cards')
 const pendingCards = document.querySelector('#pending--cards')
+const todaysTrips = document.querySelector('#welcome--trips')
 const trips = {
   Template: document.querySelector('#trip--template'),
   Previous: document.querySelector('#trip--previous'),
@@ -40,6 +41,10 @@ const domUpdates = {
     trips[status].querySelectorAll('article').forEach(item => item.remove())
   },
 
+  clearTripList() {
+    todaysTrips.querySelectorAll('li').forEach(li => li.remove())
+  },
+
   clearTravelerCardDisplays() {
     travelerCards.querySelectorAll('article').forEach(item => item.remove())
     pendingCards.querySelectorAll('article').forEach(item => item.remove())
@@ -72,6 +77,16 @@ const domUpdates = {
   displayAgentAnnualIncome(presentSpent) {
     const presentIncome = document.querySelector('#welcome--income')
     presentIncome.innerText = `$${presentSpent}`
+  },
+
+  displayTodaysTravelers(todaysTravelers) {
+    this.clearTripList()
+    todaysTravelers.forEach(traveler => {
+      const newTraveler = document.createElement('li')
+      newTraveler.innerText = `${Object.keys(traveler)} (#${Object.values(traveler)})`
+
+      todaysTrips.appendChild(newTraveler)
+    })
   },
 
   displayTravelerInformation(traveler, destinations) {

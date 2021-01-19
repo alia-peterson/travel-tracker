@@ -46,6 +46,31 @@
   left: 50%;
 }
 
+@mixin card-preset {
+  align-items: center;
+  background-color: $color-amaranth;
+  color: $color-eagle-green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0.5rem 0 0.5rem 0;
+  // padding: 0.5rem;
+  text-align: center;
+  width: 90%;
+}
+
+@mixin article-preset {
+  align-items: center;
+  background-color: $color-eagle-green;
+  border-radius: 0.5rem;
+  // box-shadow: 3px 3px 4px $color-deep-jungle;
+  color: $color-almond;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  padding: 1rem;
+}
+
 $color-deep-jungle: #00262E; // shadow color
 $color-eagle-green: #003844; // darkest green
 $color-jungle-green: #005256; // mid green
