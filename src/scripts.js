@@ -19,11 +19,6 @@ const travelerDashboard = document.querySelector('.dashboard-user')
 const agentDashboard = document.querySelector('.dashboard-agent')
 const loginView = document.querySelector('.login')
 const travelerUsername = document.querySelector('#name-traveler')
-const travelerPassword = document.querySelector('#pass-traveler')
-const agentUsername = document.querySelector('#name-agent')
-const agentPassword = document.querySelector('#pass-agent')
-const totalSpentPrevious = document.querySelector('#spending--previous-amount')
-const totalSpentPresent = document.querySelector('#spending--present-amount')
 const destinationDropdown = document.querySelector('#planning--destination')
 const dateInput = document.querySelector('#planning--date')
 const estimatedCostOfTrip = document.querySelector('#planning--cost')
@@ -31,6 +26,7 @@ const durationDropdown = document.querySelector('#planning--duration')
 const travelersDropdown = document.querySelector('#planning--travelers')
 const tripMobileDropdown = document.querySelector('#trip--dropdown')
 const agentMobileDropdown = document.querySelector('#traveler--dropdown')
+const travelerSearchBar = document.querySelector('#traveler--search')
 
 const currentAgent = new Agent()
 let currentTraveler
@@ -47,6 +43,7 @@ travelersDropdown.addEventListener('change', updateEstimatedCost)
 dateInput.addEventListener('change', validateForm)
 tripMobileDropdown.addEventListener('change', changeTripView)
 agentMobileDropdown.addEventListener('change', toggleTripAndTravelerView)
+travelerSearchBar.addEventListener('keyup', searchForUser)
 
 
 // FETCH SERVER DATA
@@ -111,6 +108,10 @@ function populateAgentDestinations(allDestinations) {
 
 // USER INFORMATION POPULATION
 function authenticateUser(event) {
+  const travelerPassword = document.querySelector('#pass-traveler')
+  const agentUsername = document.querySelector('#name-agent')
+  const agentPassword = document.querySelector('#pass-agent')
+
   if (event.target.id === 'button-traveler' &&
       travelerUsername.value.includes('traveler') &&
       travelerPassword.value === 'travel2020') {
@@ -165,6 +166,9 @@ function clearAllTripDisplays() {
 }
 
 function displayAmoutSpent() {
+  const totalSpentPrevious = document.querySelector('#spending--previous-amount')
+  const totalSpentPresent = document.querySelector('#spending--present-amount')
+
   const previous = currentTraveler.calculateSpending(currentAgent.destinations, 2020)
   const present = currentTraveler.calculateSpending(currentAgent.destinations, 2021)
 
@@ -306,8 +310,29 @@ function loadAgentDashboard() {
   populateTodaysTravelers()
 }
 
-function searchForUser() {
+function searchForUser(event) {
+  const searchValue = event.target.value.toLowerCase()
 
+  const travelerIDs = currentAgent.travelers.reduce((acc, curr) => {
+    if (!curr.name.toLowerCase().includes(searchValue)) {
+      acc.push(curr.id)
+    }
+    return acc
+  }, [])
+
+  unhideAllTravelers()
+  hideUnsearchedTravelers(travelerIDs)
+}
+
+function unhideAllTravelers() {
+  const allTravelers = document.querySelectorAll('.trip--card')
+  allTravelers.forEach(traveler => traveler.classList.remove('hidden'))
+}
+
+function hideUnsearchedTravelers(travelerIDs) {
+  travelerIDs.forEach(id => {
+    document.getElementById(`${id}`).classList.add('hidden')
+  })
 }
 
 function populateAnnualIncome() {

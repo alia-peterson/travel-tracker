@@ -16,13 +16,17 @@
     cursor: default;
 
     .card--image {
+      border-radius: 0.5rem 0.5rem 0 0;
       opacity: 50%;
       transition: .8s ease;
+      z-index: 0;
     }
   }
 
   h3 {
     font-size: 18px;
+    position: relative;
+    z-index: 1;
   }
 
   h4 {
@@ -42,7 +46,7 @@
 }
 
 .trip--card h3 {
-  margin: 2rem 0 2rem 0;
+  margin: 2rem 0.5rem;
 }
 
 .user--card h3 {
@@ -51,6 +55,7 @@
 
 .card {
   &--header {
+    // padding: 0 0.2rem 0 0.2rem;
     position: relative;
     width: 100%;
   }

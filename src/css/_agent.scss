@@ -8,7 +8,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .button-approve {
@@ -16,7 +16,7 @@
 }
 
 .button-delete {
-  margin: 0.2rem 0 0.2rem 0;
+  margin: 0.2rem 0;
 }
 
 .dashboard-agent {
@@ -36,6 +36,7 @@
   align-items: center;
   justify-content: flex-start;
   max-height: none;
+  width: 90%;
 
   .trip--card {
     margin: 1rem;
@@ -44,6 +45,10 @@
     table {
       border-spacing: 0.5rem 0;
       text-align: left;
+
+      thead {
+        text-decoration: underline;
+      }
     }
 
     h3 {
@@ -54,6 +59,13 @@
 
 .traveler--form {
   display: none;
+}
+
+.traveler--search {
+  margin-top: 0.5rem;
+  text-align: center;
+  height: 20px;
+  width: 200px;
 }
 
 .user--card {
@@ -131,7 +143,7 @@
   .planning-agent {
     background-color: $color-eagle-green;
     padding-top: 4rem;
-    overflow: scroll;
+    overflow-y: auto;
   }
 
   .trip--card {
@@ -151,6 +163,7 @@
   }
 
   .welcome {
+    margin: 0 auto;
     width: 90%;
   }
 

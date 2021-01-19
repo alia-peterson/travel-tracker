@@ -1,8 +1,5 @@
 import Traveler from './traveler'
 
-const welcomeMessage = document.querySelector('#welcome--message')
-const travelerTemplate = document.querySelector('#traveler--template')
-const pendingTemplate = document.querySelector('#pending--template')
 const travelerCards = document.querySelector('#traveler--cards')
 const pendingCards = document.querySelector('#pending--cards')
 const todaysTrips = document.querySelector('#welcome--trips')
@@ -15,7 +12,11 @@ const trips = {
 }
 
 const domUpdates = {
+
+  // USER DASHBOARD
   populateTravelerGreeting(currentTraveler) {
+    const welcomeMessage = document.querySelector('#welcome--message')
+
     const travelerNames = currentTraveler.name.split(' ')
     const travelerFirstName = travelerNames[0]
 
@@ -35,19 +36,6 @@ const domUpdates = {
 
     const status = trip.determineTripStatus(daysPassed)
     trips[status].appendChild(tripCard)
-  },
-
-  clearTripDisplays(status) {
-    trips[status].querySelectorAll('article').forEach(item => item.remove())
-  },
-
-  clearTripList() {
-    todaysTrips.querySelectorAll('li').forEach(li => li.remove())
-  },
-
-  clearTravelerCardDisplays() {
-    travelerCards.querySelectorAll('article').forEach(item => item.remove())
-    pendingCards.querySelectorAll('article').forEach(item => item.remove())
   },
 
   addCostToProfile(yearSpent, totalCost) {
@@ -74,6 +62,7 @@ const domUpdates = {
     })
   },
 
+  // AGENT DASHBOARD
   displayAgentAnnualIncome(presentSpent) {
     const presentIncome = document.querySelector('#welcome--income')
     presentIncome.innerText = `$${presentSpent}`
@@ -90,10 +79,13 @@ const domUpdates = {
   },
 
   displayTravelerInformation(traveler, destinations) {
+    const travelerTemplate = document.querySelector('#traveler--template')
+
     const newTravelerCard = travelerTemplate.content.cloneNode(true)
     const travelerName = `${traveler.name} (#${traveler.id})`
     const travelerSpending = traveler.calculateSpending(destinations)
 
+    newTravelerCard.querySelector('article').id = traveler.id
     newTravelerCard.querySelector('#traveler--name').innerText = travelerName
     newTravelerCard.querySelector('#traveler--spent').innerText = travelerSpending
 
@@ -109,6 +101,8 @@ const domUpdates = {
     const pendingTrips = traveler.trips.filter(trip => trip.status === 'pending')
 
     pendingTrips.forEach(trip => {
+      const pendingTemplate = document.querySelector('#pending--template')
+
       const location = this.findDestination(destinations, trip)
       const newCard = pendingTemplate.content.cloneNode(true)
       const travelerName = `${traveler.name} (#${traveler.id})`
@@ -124,10 +118,6 @@ const domUpdates = {
     })
   },
 
-  findDestination(destinations, trip) {
-    return destinations.find(place => place.id === trip.destinationID)
-  },
-
   buildTableElements(trip, location, card) {
     const travelerLocations = card.querySelector('#traveler--locations')
     const newRow = document.createElement('tr')
@@ -140,7 +130,26 @@ const domUpdates = {
     travelerLocations.appendChild(newRow)
     newRow.appendChild(locationCell)
     newRow.appendChild(statusCell)
+  },
+
+  // HELPER FUNCTIONS
+  findDestination(destinations, trip) {
+    return destinations.find(place => place.id === trip.destinationID)
+  },
+
+  clearTripDisplays(status) {
+    trips[status].querySelectorAll('article').forEach(item => item.remove())
+  },
+
+  clearTripList() {
+    todaysTrips.querySelectorAll('li').forEach(li => li.remove())
+  },
+
+  clearTravelerCardDisplays() {
+    travelerCards.querySelectorAll('article').forEach(item => item.remove())
+    pendingCards.querySelectorAll('article').forEach(item => item.remove())
   }
+
 }
 
 export default domUpdates
