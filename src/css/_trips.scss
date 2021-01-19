@@ -70,6 +70,11 @@
   }
 }
 
+#trip--dropdown-message {
+  display: none;
+  margin-top: 1rem;
+}
+
 #trip--present {
   grid-area: present;
 }
@@ -110,6 +115,7 @@
     justify-content: center;
     overflow: auto;
     padding-top: 4rem;
+    min-height: 4rem;
 
     h2 {
       display: none !important;
@@ -123,6 +129,9 @@
 
   .trip--form {
     @include mobile-dropdown;
+    justify-content: flex-start;
+    min-height: 70px;
+    width: 100%;
   }
 
   .trip-user {

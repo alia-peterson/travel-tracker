@@ -26,9 +26,11 @@ const totalSpentPrevious = document.querySelector('#spending--previous-amount')
 const totalSpentPresent = document.querySelector('#spending--present-amount')
 const destinationDropdown = document.querySelector('#planning--destination')
 const dateInput = document.querySelector('#planning--date')
+const estimatedCostOfTrip = document.querySelector('#planning--cost')
 const durationDropdown = document.querySelector('#planning--duration')
 const travelersDropdown = document.querySelector('#planning--travelers')
-const estimatedCostOfTrip = document.querySelector('#planning--cost')
+const tripMobileDropdown = document.querySelector('#trip--dropdown')
+const agentMobileDropdown = document.querySelector('#traveler--dropdown')
 
 const currentAgent = new Agent()
 let currentTraveler
@@ -43,6 +45,7 @@ destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
 dateInput.addEventListener('change', validateForm)
+tripMobileDropdown.addEventListener('change', changeTripView)
 
 
 // FETCH SERVER DATA
@@ -196,6 +199,36 @@ function createNewTrip() {
   reloadServerInformation()
     .then(clearAllTripDisplays)
     .then(findDestinationInformation)
+}
+
+function changeTripView(event) {
+  const tripSection = document.querySelector('#trip-user')
+  tripSection.classList.remove('display-previous')
+  tripSection.classList.remove('display-present')
+  tripSection.classList.remove('display-upcoming')
+  tripSection.classList.remove('display-pending')
+
+  const dropdownValue = event.target.value.toLowerCase()
+  tripSection.classList.add(`display-${dropdownValue}`)
+
+  const tripDropdownMessage = document.querySelector('#trip--dropdown-message')
+  if (!checkForTripType(dropdownValue)) {
+    tripDropdownMessage.innerText = `You do not have any ${dropdownValue} trips at this time`
+    tripDropdownMessage.style.display = 'inline-block'
+  } else {
+    tripDropdownMessage.style.display = 'none'
+  }
+}
+
+function checkForTripType(dropdownValue) {
+  const thisTripType = document.querySelector(`#trip--${dropdownValue}`)
+  const tripList = thisTripType.querySelectorAll('article')
+
+  if (tripList.length > 0) {
+    return true
+  }
+
+  return false
 }
 
 
