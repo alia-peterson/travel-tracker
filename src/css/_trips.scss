@@ -109,6 +109,10 @@
     display: none !important;
   }
 
+  .card--image {
+    opacity: 50%;
+  }
+
   .trip--article {
     flex-direction: row;
     flex-wrap: wrap;

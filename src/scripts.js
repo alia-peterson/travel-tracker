@@ -46,6 +46,7 @@ durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
 dateInput.addEventListener('change', validateForm)
 tripMobileDropdown.addEventListener('change', changeTripView)
+agentMobileDropdown.addEventListener('change', toggleTripAndTravelerView)
 
 
 // FETCH SERVER DATA
@@ -208,12 +209,13 @@ function changeTripView(event) {
   tripSection.classList.remove('display-upcoming')
   tripSection.classList.remove('display-pending')
 
-  const dropdownValue = event.target.value.toLowerCase()
+  const dropdownValue = event.target.value
   tripSection.classList.add(`display-${dropdownValue}`)
 
   const tripDropdownMessage = document.querySelector('#trip--dropdown-message')
   if (!checkForTripType(dropdownValue)) {
-    tripDropdownMessage.innerText = `You do not have any ${dropdownValue} trips at this time`
+    const message = `You do not have any ${dropdownValue} trips at this time`
+    tripDropdownMessage.innerText = message
     tripDropdownMessage.style.display = 'inline-block'
   } else {
     tripDropdownMessage.style.display = 'none'
@@ -356,6 +358,32 @@ function loadTravelerInformation() {
   })
 
   addPendingButtonEventListeners()
+}
+
+function toggleTripAndTravelerView(event) {
+  const dropdownValue = event.target.value
+
+  if (dropdownValue === 'trips') {
+    checkForPendingTrips()
+    agentDashboard.classList.add('display-trips')
+    agentDashboard.classList.remove('display-travelers')
+
+  } else {
+    agentDashboard.classList.remove('display-trips')
+    agentDashboard.classList.add('display-travelers')
+  }
+}
+
+function checkForPendingTrips() {
+  const pendingTrips = document.querySelector('#pending--article')
+  const tripList = pendingTrips.querySelector('article')
+  const pendingMessage = document.querySelector('#pending--message')
+
+  if (!tripList) {
+    pendingMessage.style.display = 'inline-block'
+  } else {
+    pendingMessage.style.display = 'none'
+  }
 }
 
 

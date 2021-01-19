@@ -51,6 +51,16 @@ h2, h3, p {
   }
 }
 
+.list-unordered {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    font-size: 14px;
+  }
+}
+
 .welcome {
   background-color: $color-honey;
   border-radius: 0.5rem;
@@ -124,16 +134,11 @@ h2, h3, p {
       justify-content: center;
     }
   }
-}
-
-@media screen and (max-width: 550px) {
-  .container {
-    height: 80%;
-  }
 
   .welcome {
     align-items: center;
     text-align: center;
+    padding: 0.5rem;
 
     &--spending {
       justify-content: center;
@@ -141,11 +146,13 @@ h2, h3, p {
   }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 550px) {
   .container {
-    height: 75%;
+    height: 80%;
   }
+}
 
+@media screen and (max-width: 390px) {
   .header {
     margin-bottom: 1rem;
   }

@@ -11,6 +11,10 @@
   overflow: scroll;
 }
 
+.button-approve {
+  margin-top: 0.6rem;
+}
+
 .button-delete {
   margin: 0.2rem 0 0.2rem 0;
 }
@@ -56,6 +60,14 @@
   @include card-preset;
 }
 
+.welcome h3 {
+  text-decoration: underline;
+}
+
+#pending--message {
+  display: none;
+}
+
 #welcome-agent {
   grid-area: welcomeAgent;
 }
@@ -92,7 +104,11 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 650px) {
+  h1 {
+    margin: 0.4rem;
+  }
+
   .agent--body h2 {
     display: none;
   }
@@ -113,8 +129,13 @@
 
   .pending--article,
   .planning-agent {
-    padding-top: 5rem;
+    background-color: $color-eagle-green;
+    padding-top: 4rem;
     overflow: scroll;
+  }
+
+  .trip--card {
+    max-width: 270px;
   }
 
   .traveler--form-container {
@@ -125,7 +146,8 @@
 
   .traveler--form {
     @include mobile-dropdown;
-    top: 1.5rem;
+    top: 1rem;
+    width: 100%;
   }
 
   .welcome {

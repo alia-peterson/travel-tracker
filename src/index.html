@@ -92,10 +92,10 @@
           <div class="trip--form">
             <label for="trip--dropdown">Select Trips to View</label>
             <select class="trip--dropdown" id="trip--dropdown" name="">
-              <option value="Previous">Previous</option>
-              <option value="Present">Present</option>
-              <option value="Upcoming">Upcoming</option>
-              <option value="Pending">Pending</option>
+              <option value="previous">Previous</option>
+              <option value="present">Present</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="pending">Pending</option>
             </select>
             <p id="trip--dropdown-message">You have none of this trip type at this time</p>
           </div>
@@ -136,29 +136,30 @@
           <h3>YTD Income:</h3>
           <p id="welcome--income">$400.55</p>
           <h3>Today's Travelers:</h3>
-          <ul id="welcome--trips"></ul>
+          <ul id="welcome--trips" class="list-unordered"></ul>
         </article>
         <div class="traveler--form-container">
           <div class="traveler--form">
             <label for="traveler--dropdown">Select View</label>
             <select class="traveler--dropdown" id="traveler--dropdown" name="">
-              <option value="Pending Trips">Pending Trips</option>
-              <option value="All Travelers">All Travelers</option>
+              <option value="trips">Pending Trips</option>
+              <option value="travelers">All Travelers</option>
             </select>
+            <p id="pending--message">There are no pending trips at this time</p>
           </div>
         </div>
+        <template id="pending--template">
+          <article class="user--card">
+            <h3 class="pending--name">User Name</h3>
+            <p class="pending--location">Location</p>
+            <p class="pending--date">Start Date</p>
+            <button class="button-secondary button-approve" type="button" name="button">Approve</button>
+            <button class="button-secondary button-delete" type="button" name="button">Delete</button>
+          </article>
+        </template>
         <article class="pending--article agent--body trips" id="pending--article">
           <h2>Pending Trips</h2>
           <div class="pending--cards" id="pending--cards">
-            <template id="pending--template">
-              <article class="user--card">
-                <h3 class="pending--name">User Name</h3>
-                <p class="pending--location">Location</p>
-                <p class="pending--date">Start Date</p>
-                <button class="button-secondary button-approve" type="button" name="button">Approve</button>
-                <button class="button-secondary button-delete" type="button" name="button">Delete</button>
-              </article>
-            </template>
           </div>
         </article>
         <article class="planning-agent agent--body travelers" id="planning-agent">
