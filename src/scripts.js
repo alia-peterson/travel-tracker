@@ -19,16 +19,14 @@ const travelerDashboard = document.querySelector('.dashboard-user')
 const agentDashboard = document.querySelector('.dashboard-agent')
 const loginView = document.querySelector('.login')
 const travelerUsername = document.querySelector('#name-traveler')
-const travelerPassword = document.querySelector('#pass-traveler')
-const agentUsername = document.querySelector('#name-agent')
-const agentPassword = document.querySelector('#pass-agent')
-const totalSpentPrevious = document.querySelector('#spending--previous-amount')
-const totalSpentPresent = document.querySelector('#spending--present-amount')
 const destinationDropdown = document.querySelector('#planning--destination')
 const dateInput = document.querySelector('#planning--date')
+const estimatedCostOfTrip = document.querySelector('#planning--cost')
 const durationDropdown = document.querySelector('#planning--duration')
 const travelersDropdown = document.querySelector('#planning--travelers')
-const estimatedCostOfTrip = document.querySelector('#planning--cost')
+const tripMobileDropdown = document.querySelector('#trip--dropdown')
+const agentMobileDropdown = document.querySelector('#traveler--dropdown')
+const travelerSearchBar = document.querySelector('#traveler--search')
 
 const currentAgent = new Agent()
 let currentTraveler
@@ -43,6 +41,9 @@ destinationDropdown.addEventListener('change', updateEstimatedCost)
 durationDropdown.addEventListener('change', updateEstimatedCost)
 travelersDropdown.addEventListener('change', updateEstimatedCost)
 dateInput.addEventListener('change', validateForm)
+tripMobileDropdown.addEventListener('change', changeTripView)
+agentMobileDropdown.addEventListener('change', toggleTripAndTravelerView)
+travelerSearchBar.addEventListener('keyup', searchForUser)
 
 
 // FETCH SERVER DATA
@@ -107,6 +108,10 @@ function populateAgentDestinations(allDestinations) {
 
 // USER INFORMATION POPULATION
 function authenticateUser(event) {
+  const travelerPassword = document.querySelector('#pass-traveler')
+  const agentUsername = document.querySelector('#name-agent')
+  const agentPassword = document.querySelector('#pass-agent')
+
   if (event.target.id === 'button-traveler' &&
       travelerUsername.value.includes('traveler') &&
       travelerPassword.value === 'travel2020') {
@@ -161,6 +166,9 @@ function clearAllTripDisplays() {
 }
 
 function displayAmoutSpent() {
+  const totalSpentPrevious = document.querySelector('#spending--previous-amount')
+  const totalSpentPresent = document.querySelector('#spending--present-amount')
+
   const previous = currentTraveler.calculateSpending(currentAgent.destinations, 2020)
   const present = currentTraveler.calculateSpending(currentAgent.destinations, 2021)
 
@@ -196,6 +204,37 @@ function createNewTrip() {
   reloadServerInformation()
     .then(clearAllTripDisplays)
     .then(findDestinationInformation)
+}
+
+function changeTripView(event) {
+  const tripSection = document.querySelector('#trip-user')
+  tripSection.classList.remove('display-previous')
+  tripSection.classList.remove('display-present')
+  tripSection.classList.remove('display-upcoming')
+  tripSection.classList.remove('display-pending')
+
+  const dropdownValue = event.target.value
+  tripSection.classList.add(`display-${dropdownValue}`)
+
+  const tripDropdownMessage = document.querySelector('#trip--dropdown-message')
+  if (!checkForTripType(dropdownValue)) {
+    const message = `You do not have any ${dropdownValue} trips at this time`
+    tripDropdownMessage.innerText = message
+    tripDropdownMessage.style.display = 'inline-block'
+  } else {
+    tripDropdownMessage.style.display = 'none'
+  }
+}
+
+function checkForTripType(dropdownValue) {
+  const thisTripType = document.querySelector(`#trip--${dropdownValue}`)
+  const tripList = thisTripType.querySelectorAll('article')
+
+  if (tripList.length > 0) {
+    return true
+  }
+
+  return false
 }
 
 
@@ -271,8 +310,29 @@ function loadAgentDashboard() {
   populateTodaysTravelers()
 }
 
-function searchForUser() {
+function searchForUser(event) {
+  const searchValue = event.target.value.toLowerCase()
 
+  const travelerIDs = currentAgent.travelers.reduce((acc, curr) => {
+    if (!curr.name.toLowerCase().includes(searchValue)) {
+      acc.push(curr.id)
+    }
+    return acc
+  }, [])
+
+  unhideAllTravelers()
+  hideUnsearchedTravelers(travelerIDs)
+}
+
+function unhideAllTravelers() {
+  const allTravelers = document.querySelectorAll('.trip--card')
+  allTravelers.forEach(traveler => traveler.classList.remove('hidden'))
+}
+
+function hideUnsearchedTravelers(travelerIDs) {
+  travelerIDs.forEach(id => {
+    document.getElementById(`${id}`).classList.add('hidden')
+  })
 }
 
 function populateAnnualIncome() {
@@ -323,6 +383,32 @@ function loadTravelerInformation() {
   })
 
   addPendingButtonEventListeners()
+}
+
+function toggleTripAndTravelerView(event) {
+  const dropdownValue = event.target.value
+
+  if (dropdownValue === 'trips') {
+    checkForPendingTrips()
+    agentDashboard.classList.add('display-trips')
+    agentDashboard.classList.remove('display-travelers')
+
+  } else {
+    agentDashboard.classList.remove('display-trips')
+    agentDashboard.classList.add('display-travelers')
+  }
+}
+
+function checkForPendingTrips() {
+  const pendingTrips = document.querySelector('#pending--article')
+  const tripList = pendingTrips.querySelector('article')
+  const pendingMessage = document.querySelector('#pending--message')
+
+  if (!tripList) {
+    pendingMessage.style.display = 'inline-block'
+  } else {
+    pendingMessage.style.display = 'none'
+  }
 }
 
 

@@ -8,11 +8,15 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  overflow: scroll;
+  overflow-y: auto;
+}
+
+.button-approve {
+  margin-top: 0.6rem;
 }
 
 .button-delete {
-  margin: 0.2rem 0 0.2rem 0;
+  margin: 0.2rem 0;
 }
 
 .dashboard-agent {
@@ -32,6 +36,7 @@
   align-items: center;
   justify-content: flex-start;
   max-height: none;
+  width: 90%;
 
   .trip--card {
     margin: 1rem;
@@ -40,6 +45,10 @@
     table {
       border-spacing: 0.5rem 0;
       text-align: left;
+
+      thead {
+        text-decoration: underline;
+      }
     }
 
     h3 {
@@ -52,8 +61,23 @@
   display: none;
 }
 
+.traveler--search {
+  margin-top: 0.5rem;
+  text-align: center;
+  height: 20px;
+  width: 200px;
+}
+
 .user--card {
   @include card-preset;
+}
+
+.welcome h3 {
+  text-decoration: underline;
+}
+
+#pending--message {
+  display: none;
 }
 
 #welcome-agent {
@@ -92,7 +116,11 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 650px) {
+  h1 {
+    margin: 0.4rem;
+  }
+
   .agent--body h2 {
     display: none;
   }
@@ -113,8 +141,13 @@
 
   .pending--article,
   .planning-agent {
-    padding-top: 5rem;
-    overflow: scroll;
+    background-color: $color-eagle-green;
+    padding-top: 4rem;
+    overflow-y: auto;
+  }
+
+  .trip--card {
+    max-width: 270px;
   }
 
   .traveler--form-container {
@@ -125,10 +158,12 @@
 
   .traveler--form {
     @include mobile-dropdown;
-    top: 1.5rem;
+    top: 1rem;
+    width: 100%;
   }
 
   .welcome {
+    margin: 0 auto;
     width: 90%;
   }
 
