@@ -24,6 +24,22 @@
   grid-template-areas:
     "previous present upcoming pending";
   overflow: hidden;
+
+  .trip--card:hover {
+    cursor: default;
+
+    .card--image {
+      border-radius: 0.5rem 0.5rem 0 0;
+      opacity: 0.5;
+      transition: .8s ease;
+      z-index: 0;
+    }
+
+    h3 {
+      background-color: white;
+      opacity: 0.8;
+    }
+  }
 }
 
 .trip {
@@ -55,22 +71,6 @@
   p {
     font-size: 14px;
     margin: 0.5rem 0;
-  }
-}
-
-.trip--card:hover {
-  cursor: default;
-
-  .card--image {
-    border-radius: 0.5rem 0.5rem 0 0;
-    opacity: 0.5;
-    transition: .8s ease;
-    z-index: 0;
-  }
-
-  h3 {
-    background-color: white;
-    opacity: 0.8;
   }
 }
 
