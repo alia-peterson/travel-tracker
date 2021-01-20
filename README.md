@@ -61,13 +61,14 @@ Note: a travelers spending for this year does not include pending trips. When a 
 </details>
 
 ### Responsive Design
+Responsiveness was a consideration while working through this project. There are a few breakpoints for different screen sizes, the layouts for a screen sized around 768px wide are shown below:
 
-
+<p align="center"><img src=https://user-images.githubusercontent.com/70297733/105206108-378dc700-5b03-11eb-8df6-3e5c2823c359.png width=200px> <img src=https://user-images.githubusercontent.com/70297733/105206291-715ecd80-5b03-11eb-8337-bd51f2653531.png width=200px></p>
 
 ## Continuous Improvement
 Next steps for this website would likely include improving the visuals. At this point in the curriculum, we've been exposed to CSS and SCSS but haven't been exposed to React yet. It would be nice to build out the website to look more like a "real" website.
 
-Additionally, it would be nice to allow a traveler to edit a pending trip and / or receive feedback when a trip is approved or deleted by an agent. 
+Additionally, it would be nice to allow a traveler to edit a pending trip and / or receive feedback when a trip is approved or deleted by an agent.
 
 ## Technologies
 JavaScript, Fetch, JSON, Mocha, Chai, HTML, CSS/SCSS, Normalize, Webpack
