@@ -20,7 +20,7 @@
       </div>
     </header>
     <main class="container">
-      <section class="login">
+      <section class="login hidden">
         <section class="login--main">
           <h2>User Login</h2>
           <div class="login--body">
@@ -44,6 +44,7 @@
           </div>
         </section>
       </section>
+
       <section class="dashboard-user hidden">
         <article class="welcome" id="welcome-user">
           <h2 id="welcome--message">Welcome User!</h2>
@@ -100,6 +101,9 @@
             <p id="trip--dropdown-message">You have none of this trip type at this time</p>
           </div>
           <template id="trip--template">
+          </template>
+          <article id="trip--previous" class="trip--article previous">
+            <h2>Previous</h2>
             <article class="trip--card">
               <div class="card--header">
                 <h3 class="card--title card--destination">Hawaii</h3>
@@ -115,9 +119,6 @@
                 <p class="card--text card--flight">Flight Cost: $600</p>
               </div>
             </article>
-          </template>
-          <article id="trip--previous" class="trip--article previous">
-            <h2>Previous</h2>
           </article>
           <article id="trip--present" class="trip--article present">
             <h2>Present</h2>
@@ -130,7 +131,8 @@
           </article>
         </section>
       </section>
-      <section class="dashboard-agent hidden display-trips">
+
+      <section class="dashboard-agent display-trips">
         <article class="welcome" id="welcome-agent">
           <h2>Welcome Agent!</h2>
           <h3>YTD Income:</h3>
@@ -149,17 +151,17 @@
           </div>
         </div>
         <template id="pending--template">
-          <article class="user--card">
-            <h3 class="pending--name">User Name</h3>
-            <p class="pending--location">Location</p>
-            <p class="pending--date">Start Date</p>
-            <button class="button-secondary button-approve" type="button" name="button">Approve</button>
-            <button class="button-secondary button-delete" type="button" name="button">Delete</button>
-          </article>
         </template>
         <article class="pending--article agent--body trips" id="pending--article">
           <h2>Pending Trips</h2>
           <div class="pending--cards" id="pending--cards">
+            <article class="user--card">
+              <h3 class="pending--name">User Name</h3>
+              <p class="pending--location">Location</p>
+              <p class="pending--date">Start Date</p>
+              <button class="button-secondary button-approve" type="button" name="button">Approve</button>
+              <button class="button-secondary button-delete" type="button" name="button">Delete</button>
+            </article>
           </div>
         </article>
         <article class="planning-agent agent--body travelers" id="planning-agent">
@@ -172,22 +174,22 @@
             <p id="server-error">Unable to access server information at this time. Please check that the server is running and refresh the page.</p>
           </div>
           <div class="traveler--cards" id="traveler--cards">
+            <article class="trip--card">
+              <h3 class="card--title" id="traveler--name">User Name</h3>
+              <h4 class="card--header">All Trips:</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <td>Location</td>
+                    <td>Status</td>
+                  </tr>
+                </thead>
+                <tbody id="traveler--locations"></tbody>
+              </table>
+              <h4 class="card--header">Lifetime Spending:</h4>
+              <p class="card--text" id="traveler--spent">$8000</p>
+            </article>
             <template id="traveler--template">
-              <article class="trip--card">
-                <h3 class="card--title" id="traveler--name">User Name</h3>
-                <h4 class="card--header">All Trips:</h4>
-                <table>
-                  <thead>
-                    <tr>
-                      <td>Location</td>
-                      <td>Status</td>
-                    </tr>
-                  </thead>
-                  <tbody id="traveler--locations"></tbody>
-                </table>
-                <h4 class="card--header">Lifetime Spending:</h4>
-                <p class="card--text" id="traveler--spent">$8000</p>
-              </article>
             </template>
           </div>
         </article>
