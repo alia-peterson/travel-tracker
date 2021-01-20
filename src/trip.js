@@ -14,11 +14,11 @@ class Trip {
     if (this.status === 'pending') {
       return 'Pending'
 
-    } else if (Math.abs(daysPassed) <= this.duration) {
-      return 'Present'
-
     } else if (daysPassed > 0 && daysPassed <= 30) {
       return 'Upcoming'
+
+    } else if (Math.abs(daysPassed) <= this.duration) {
+      return 'Present'
     }
 
     return 'Previous'

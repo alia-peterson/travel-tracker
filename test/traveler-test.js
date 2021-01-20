@@ -34,8 +34,8 @@ describe('Traveler Class', () => {
 
   it('should sort the user trips array by date', () => {
     newTraveler.sortTripsByDate()
-    expect(newTraveler.trips[0].date).to.equal('2021/10/04')
-    expect(newTraveler.trips[1].date).to.equal('2021/05/22')
+    expect(newTraveler.trips[0].date).to.equal('2021/01/28')
+    expect(newTraveler.trips[1].date).to.equal('2021/01/21')
   })
 
   it('should calculate the total spending for a given year', () => {
