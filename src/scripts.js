@@ -203,7 +203,7 @@ function createNewTrip() {
   currentTraveler.trips.push(newTrip)
 
   fetchApi.postNewTrip(tripInformation)
-  reloadServerInformation()
+    .then(reloadServerInformation)
     .then(clearAllTripDisplays)
     .then(findDestinationInformation)
     .catch(displayErrorMessage)

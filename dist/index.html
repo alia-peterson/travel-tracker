@@ -27,7 +27,7 @@
             <article class="login--form">
               <h3>Traveler Login</h3>
               <label for="name-traveler">Username</label>
-              <input id="name-traveler" type="text" name="" value="traveler2">
+              <input id="name-traveler" type="text" name="" value="traveler25">
               <label for="pass-traveler">Password</label>
               <input id="pass-traveler" type="password" name="" value="travel2020">
               <button id="button-traveler" class="button-secondary" type="button" name="button">Login</button>
@@ -165,7 +165,11 @@
         <article class="planning-agent agent--body travelers" id="planning-agent">
           <div class="traveler--header">
             <h2>All Travelers</h2>
-            <input id="traveler--search" class="traveler--search" type="text" name="" value="" placeholder="search by traveler name">
+            <div class="traveler--search-box">
+              <label for="traveler--search">Search by Traveler Name</label>
+              <input id="traveler--search" class="traveler--search" type="text" name="" value="" placeholder="tony stark">
+            </div>
+            <p id="server-error">Unable to access server information at this time. Please check that the server is running and refresh the page.</p>
           </div>
           <div class="traveler--cards" id="traveler--cards">
             <template id="traveler--template">
