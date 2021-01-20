@@ -68,8 +68,18 @@
   width: 200px;
 }
 
+.traveler--search-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
 .user--card {
   @include card-preset;
+  min-width: 160px;
 }
 
 .welcome h3 {
@@ -149,6 +159,7 @@
     background-color: $color-eagle-green;
     padding-top: 4rem;
     overflow-y: auto;
+    width: 90%;
   }
 
   .trip--card {
