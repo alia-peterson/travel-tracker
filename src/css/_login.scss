@@ -92,6 +92,14 @@
 }
 
 @media screen and (max-width: 375px) {
+  .container {
+    height: 85%;
+  }
+
+  .login {
+    height: 100%;
+  }
+
   .login--body {
     padding: 0 0.5rem 0 0.5rem;
   }

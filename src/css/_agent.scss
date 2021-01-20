@@ -92,6 +92,11 @@
   grid-area: tripsAgent;
 }
 
+#server-error {
+  display: none;
+  margin-top: 1rem;
+}
+
 
 // MEDIA SCREENS
 @media screen and (max-width: 910px) {

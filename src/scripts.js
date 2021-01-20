@@ -67,6 +67,7 @@ function reloadServerInformation() {
       populateAgentTrips(allTrips)
       alphabetizeDataset(currentAgent.travelers, 'name')
     })
+    .catch(displayErrorMessage)
 }
 
 Promise.all([travelersResponse, tripsResponse, destinationsResponse])
@@ -80,7 +81,7 @@ Promise.all([travelersResponse, tripsResponse, destinationsResponse])
     populateAgentDestinations(allDestinations)
   })
   .then(populateDropdowns)
-
+  .catch(displayErrorMessage)
 
 function populateAgentTravelers(allTravelers, allTrips) {
   allTravelers.forEach(traveler => {
@@ -134,6 +135,7 @@ function loadTravelerDashboard() {
 
   fetchApi.getSpecificTraveler(travelerID)
     .then(traveler => createTravelerProfile(traveler))
+    .catch(displayErrorMessage)
 }
 
 function createTravelerProfile(traveler) {
@@ -204,6 +206,7 @@ function createNewTrip() {
   reloadServerInformation()
     .then(clearAllTripDisplays)
     .then(findDestinationInformation)
+    .catch(displayErrorMessage)
 }
 
 function changeTripView(event) {
@@ -364,6 +367,7 @@ function approvePendingTrip(event) {
 
   reloadServerInformation()
     .then(loadTravelerInformation)
+    .catch(displayErrorMessage)
 }
 
 function deletePendingTrip() {
@@ -372,6 +376,7 @@ function deletePendingTrip() {
 
   reloadServerInformation()
     .then(loadTravelerInformation)
+    .catch(displayErrorMessage)
 }
 
 function loadTravelerInformation() {
@@ -463,4 +468,14 @@ function logOffWebsite() {
   travelerDashboard.classList.add('hidden')
   agentDashboard.classList.add('hidden')
   logoffButton.classList.add('hidden')
+}
+
+function displayErrorMessage(error) {
+  const errorMessage = document.querySelector('#server-error')
+  if (error) {
+    console.log('ERROR MESSAGE: Unable to access server information at this time. Please check that the server is running and refresh the page.')
+    errorMessage.style.display = 'inline-block'
+  } else {
+    errorMessage.style.display = 'none'
+  }
 }

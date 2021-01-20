@@ -1,105 +1,84 @@
-# Webpack Starter Kit
+# Travel Tracker
 
-## Clone This Repo
+## Table of Contents
+* [Introduction](#introduction)
+* [Features](#features)
+* [Continuous Improvement](#continuous-improvement)
+* [Deployment](#deployment)
+* [Author](#author)
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+## Introduction
+The primary goal of [Travel Tracker](https://github.com/alia-peterson/travel-tracker) is to help travelers plan their future trips as well as keep track of upcoming, current, and past vacations. A traveler can see the amount they have spent so far this year as well as create a new trip from a curated list of locations. Once the trip information has been entered into the planning form, the traveler can see the estimated total (including fees) for all travelers over the given timeframe and can add the trip to their pending list.
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+As an agent, the user has the ability to view the YTD income for all trips, a list of all pending trips (which can be approved or deleted), and a list of all travelers that can be searched by a traveler's name.
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+### Motivation
+The motivation behind this project was to get more experience working with servers and API's, as well as providing the instructors with a more accurate feel for my personal skill level at this point in the course.
 
-## Setup
+## Features
+* [Login Screen](#login-screen)
+* [Traveler Dashboard](#traveler-dashboard)
+* [Agent Dashboard](#agent-dashboard)
+* [Responsive Design](#responsive-design)
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
+### Login Screen
+When the website is first loaded, a user will see the login screen below with pre-filled input fields for ease of use.
+![image](https://user-images.githubusercontent.com/70297733/105110771-9c520e80-5a7c-11eb-99bf-48bb79cc9543.png)
 
-Then install the library dependencies. Run:
+<details>
+  <Summary>Under the Hood</summary>
+  The values for the username and password are used to populate the dashboards for the traveler and agent but are not actually authenticated in any way. The traveler username of <code>traveler25</code> means that the user with the ID of 25 will be retrieved from the Traveler API and will be used to populate the dashboard information.
+</details>
 
-```bash
-npm install
-```
+### Traveler Dashboard
+When a traveler visits their dashboard, they will see a welcome message with their name, as well as the amounts they've spent on trips for the previous year and this year. The user will also be able to see a form for creating a new trip, as well as all of their previous, current, and pending trips.
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text, Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+![image](https://user-images.githubusercontent.com/70297733/105111221-acb6b900-5a7d-11eb-8490-20bad61905e8.png)
 
-## Where to Add Your Code
+Each trip card displays all of the trip information such as: location name, number of travelers, and cost per person. When all the fields of the trip form are filled out, a new trip can be created, and a new a card will be displayed in the right most column, under Pending, until an agent either approves or deletes the trip.
 
-### JavaScript
+Hover over any of the trip cards to view the associated image for that destination.
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+<p align="center"><img src="https://user-images.githubusercontent.com/70297733/105111507-4d0cdd80-5a7e-11eb-8e93-b11bdbb11447.png" width=250px></p>
 
-**Create all of your feature code files in the `src` directory.**
+<details>
+  <Summary>Under the Hood</summary>
+  The information displayed on the trip cards combine information from the Traveler, Trip, and Destination API's which were accessed through <code>fetch</code> requests.
+</details>
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
+### Agent Dashboard
+When an agent visits their dashboard, they will also see a welcome message with a greeting, the YTD income for the company, as well as the names of the travelers who are currently on vacation. All pending trips are displayed in the bottom left of the screen with the option to approve or delete, and all travelers are displayed in the center / right of the screen. The agent has the ability to search all travelers by name and the list of visible cards will update live to display only the cards of the travelers that meet the search input.
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
+![image](https://user-images.githubusercontent.com/70297733/105112931-2ac88f00-5a81-11eb-85fd-7062e9cf5946.png)
 
-### HTML
+When a trip is approved or deleted, the card for that trip will be removed from the list of pending trips and the traveler's list of trips will update to show that trip card in the appropriate column depending on the date ranges for the given trip.
 
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
+Note: a travelers spending for this year does not include pending trips. When a trip is approved, the cost for the single traveler (including a 10% fee) will be added to the Current Year Spending portion of the user's dashboard.
 
-### CSS (SCSS/SASS)
+<details>
+  <Summary>Under the Hood</summary>
+  When a trip is approved, a <code>fetch</code> request is made to the server with a <code>POST</code> method, changing the status from 'pending' to 'approved.' When a trip is deleted, a <code>fetch</code> request is made with a <code>delete</code> method, removing the item from the server.
+</details>
 
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
+### Responsive Design
 
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
 
-### Images
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
+## Continuous Improvement
+Next steps for this website would likely include improving the visuals. At this point in the curriculum, we've been exposed to CSS and SCSS but haven't been exposed to React yet. It would be nice to build out the website to look more like a "real" website.
 
-## How to View Your Code in Action
+Additionally, it would be nice to allow a traveler to edit a pending trip and / or receive feedback when a trip is approved or deleted by an agent. 
 
-In the terminal, run:
+## Technologies
+JavaScript, Fetch, JSON, Mocha, Chai, HTML, CSS/SCSS, Normalize, Webpack
 
-```bash
-npm start
-```
+## Deployment
+This application requires a local server to be running independent of GitHub pages. Clone [this repository](https://github.com/turingschool-examples/travel-tracker-api) and follow the instructions included in the ReadMe to `install` and `start` the API. Once the server is running on your local machine, the site can be visited by clicking on the link here:
 
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
+[Deployment Link](https://alia-peterson.github.io/travel-tracker/dist/index.html)
 
-```bash
-Project is running at http://localhost:8080/
-```
+## Author
+[Alia Peterson](https://github.com/alia-peterson)
 
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
-
----
-
-## Test Files Organization
-
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
-
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+<img src="https://avatars3.githubusercontent.com/u/70297733?s=400&u=f7e7c3682b498a90f005565b56b38a8ac985b053&v=4" alt="Ms. Peterson"
+width="150" height="auto"/>

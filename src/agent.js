@@ -28,7 +28,7 @@ class Agent {
 
     this.travelers.forEach(traveler => {
       traveler.trips.forEach(trip => {
-        if (trip.date.includes(`${year}`)) {
+        if (trip.date.includes(`${year}`) && trip.status !== 'pending') {
           yearTrips.push(trip)
         }
       })
